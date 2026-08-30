@@ -21,3 +21,120 @@
 /* Chapter 03 uses the court as a layout field, not a foreground illustration. */
 .chapter-about { background-image:url("./assets/RUG PATTERN SIGNAGE.png"); } .chapter-about::before { position:absolute; z-index:0; inset:0; content:""; background:rgba(11,30,66,.16); } .chapter-about .about-content { justify-content:flex-start; padding-top:clamp(6rem,11vh,8.5rem); padding-bottom:clamp(3rem,6vh,5rem); } .chapter-about h2 { margin-bottom:clamp(1.2rem,2.8vh,2.25rem); font-size:clamp(4.2rem,10.4vw,11.2rem); } .chapter-about .about-story { max-width:760px; margin-left:0; } .chapter-about .about-story p { max-width:66ch; margin-bottom:1rem; font-size:13.5px; line-height:1.67; } .chapter-about .about-story .statement { max-width:28ch; margin-bottom:1.35rem; font-size:clamp(1.55rem,2.35vw,2.45rem); line-height:1.01; text-align:left; } .chapter-nav { right:clamp(2rem,7.5vw,8rem); } @media (max-width:720px) { .chapter-about .about-content { padding-top:5.8rem; } .chapter-about h2 { font-size:clamp(4rem,18vw,6.4rem); } .chapter-about .about-story p { font-size:12px; line-height:1.62; } .chapter-about .about-story .statement { font-size:1.62rem; } .chapter-nav { right:1rem; } }
 .chapter-about { background-color:#071f4f; } .chapter-about::before { display:none; } .chapter-about h2 { margin-bottom:clamp(3.2rem,6.2vh,4rem); font-size:clamp(4rem,9.6vw,10.4rem); } .chapter-about .about-story { max-width:540px; } .chapter-about .about-story p { max-width:470px; color:rgba(238,225,197,.9); font-size:13.5px; font-weight:400; line-height:1.72; } .chapter-about .about-story .statement { max-width:30ch; color:var(--cream); } @media (max-width:720px) { .chapter-about h2 { margin-bottom:2.75rem; font-size:clamp(3.8rem,17vw,6rem); } .chapter-about .about-story { max-width:100%; } .chapter-about .about-story p { max-width:100%; line-height:1.68; } }
+
+/* Portrait viewports need a separate art-and-copy relationship from the wide desktop court. */
+.about-court { display:none; }
+
+@media (max-width:767px) {
+  :root { --mobile-gutter:clamp(1.25rem,5.5vw,1.5rem); }
+
+  .chapter-about {
+    background-image:none;
+    overflow:hidden;
+  }
+  .chapter-about .about-court {
+    position:absolute;
+    z-index:0;
+    top:50%;
+    left:50%;
+    display:block;
+    width:min(calc(100% - (var(--mobile-gutter) * 2)),26rem);
+    aspect-ratio:2095 / 3451;
+    overflow:hidden;
+    opacity:.56;
+    transform:translate(-50%,-50%);
+    pointer-events:none;
+  }
+  .chapter-about .about-court img {
+    position:absolute;
+    top:50%;
+    left:50%;
+    display:block;
+    width:164.73%;
+    max-width:none;
+    height:auto;
+    transform:translate(-50%,-50%) rotate(90deg);
+    transform-origin:center;
+  }
+}
+
+@media (max-width:720px) {
+  :root { --mobile-gutter:clamp(1.25rem,5.5vw,1.5rem); }
+
+  .masthead { padding:1rem var(--mobile-gutter); }
+  .chapter-corner { top:1rem; right:var(--mobile-gutter); }
+  .chapter-content { min-height:100dvh; padding-right:var(--mobile-gutter); padding-left:var(--mobile-gutter); }
+
+  .chapter-about {
+    background-image:none;
+  }
+  .chapter-about .about-content {
+    min-height:max(100dvh,60rem);
+    padding-top:10rem;
+    padding-bottom:5rem;
+  }
+  .chapter-about h2 {
+    margin-bottom:1.55rem;
+    font-size:clamp(3.15rem,13.2vw,4.75rem);
+    line-height:.82;
+  }
+  .chapter-about .about-story p {
+    max-width:35rem;
+    margin-bottom:1rem;
+    font-size:clamp(.75rem,3.08vw,.82rem);
+    line-height:1.62;
+  }
+  .chapter-about .about-story .statement {
+    margin-bottom:1.3rem;
+    font-size:clamp(1.55rem,7vw,2rem);
+    line-height:1.03;
+  }
+  .chapter-about .chapter-footer {
+    left:var(--mobile-gutter);
+    bottom:1.55rem;
+    text-shadow:0 1px 8px rgba(7,31,79,.7);
+  }
+
+  .shop-content { padding-top:10rem; }
+  .collaborations-content { padding-top:10rem; }
+  .collaborations-content h2 {
+    max-width:none;
+    font-size:clamp(2.4rem,10.5vw,3rem);
+    letter-spacing:-.08em;
+  }
+  .collab-image-wrap { inset:52% 0 0; }
+  .contact-content { padding-top:10rem; }
+  .newsletter-form { width:100%; }
+  .newsletter-fields input,
+  .newsletter-fields button { min-height:2.9rem; }
+  .newsletter-fields button { padding-left:.9rem; }
+}
+
+@media (max-width:860px) {
+  .chapter-nav {
+    top:3.25rem;
+    right:clamp(1.25rem,5.5vw,2rem);
+    bottom:auto;
+    left:clamp(1.25rem,5.5vw,2rem);
+    display:flex;
+    justify-content:space-between;
+    gap:.35rem;
+    padding:.18rem .35rem;
+    color:#fff8e9;
+    background:rgba(7,31,79,.84);
+    transform:none;
+  }
+  .chapter-link {
+    display:flex;
+    grid-template-columns:none;
+    flex:0 1 auto;
+    align-items:center;
+    gap:.18rem;
+    min-height:1.35rem;
+    padding:3px 0;
+    font-size:clamp(6px,1.45vw,8px);
+    line-height:1.1;
+    white-space:nowrap;
+  }
+  .chapter-link.is-active { transform:none; text-decoration:underline; text-underline-offset:4px; }
+}
