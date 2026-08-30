@@ -6,6 +6,9 @@
   "vars": {
     "BREVO_TEMP_LIST_ID": "4"
   },
+  "secrets": {
+    "required": ["BREVO_API_KEY"]
+  },
   "assets": {
     "directory": "./public",
     "binding": "ASSETS",
