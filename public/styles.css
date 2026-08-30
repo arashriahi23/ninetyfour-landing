@@ -72,7 +72,7 @@
   .collaborations-content { padding-top:10rem; }
   .collaborations-content h2 {
     max-width:none;
-    font-size:clamp(2.5rem,11.4vw,3.25rem);
+    font-size:clamp(2.4rem,10.5vw,3rem);
     letter-spacing:-.08em;
   }
   .collab-image-wrap { inset:52% 0 0; }
