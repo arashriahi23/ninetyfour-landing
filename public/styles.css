@@ -31,13 +31,30 @@
   .chapter-content { min-height:100dvh; padding-right:var(--mobile-gutter); padding-left:var(--mobile-gutter); }
 
   .chapter-about {
-    background-position:center bottom 1.25rem;
-    background-size:calc(100% - (var(--mobile-gutter) * 2)) auto;
+    background-image:none;
+    overflow:hidden;
+  }
+  .chapter-about::after {
+    position:absolute;
+    z-index:0;
+    top:50%;
+    right:-10.75rem;
+    width:21.5rem;
+    height:35rem;
+    content:"";
+    background-image:url("./assets/RUG PATTERN SIGNAGE.png");
+    background-repeat:no-repeat;
+    background-position:center;
+    background-size:cover;
+    opacity:.82;
+    transform:translateY(-50%) rotate(90deg);
+    transform-origin:center;
+    pointer-events:none;
   }
   .chapter-about .about-content {
     min-height:max(100dvh,60rem);
     padding-top:10rem;
-    padding-bottom:15rem;
+    padding-bottom:5rem;
   }
   .chapter-about h2 {
     margin-bottom:1.55rem;
@@ -56,6 +73,7 @@
     line-height:1.03;
   }
   .chapter-about .chapter-footer {
+    z-index:1;
     left:var(--mobile-gutter);
     bottom:1.55rem;
     text-shadow:0 1px 8px rgba(7,31,79,.7);
