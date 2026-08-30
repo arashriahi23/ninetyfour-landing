@@ -22,4 +22,52 @@
   window.addEventListener("scroll", () => { scrollY = window.scrollY; }, { passive:true });
   reducedMotion.addEventListener("change", () => { if (reducedMotion.matches) cancelAnimationFrame(rafId); else rafId = requestAnimationFrame(updateArtwork); });
   if (!reducedMotion.matches) rafId = requestAnimationFrame(updateArtwork);
+
+  const newsletterForm = document.querySelector("[data-newsletter-form]");
+  const newsletterStatus = document.querySelector("[data-newsletter-status]");
+  const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+  const setNewsletterStatus = (message, state = "") => {
+    newsletterStatus.textContent = message;
+    newsletterStatus.dataset.state = state;
+  };
+
+  if (new URLSearchParams(window.location.search).get("subscription") === "confirmed") {
+    setNewsletterStatus("Your subscription is confirmed. Welcome to Full Court Access.", "success");
+  }
+
+  newsletterForm?.addEventListener("submit", async (event) => {
+    event.preventDefault();
+    const email = new FormData(newsletterForm).get("email")?.trim();
+    const submitButton = newsletterForm.querySelector("button[type='submit']");
+
+    if (!emailPattern.test(email || "")) {
+      setNewsletterStatus("Enter a valid email address.", "error");
+      newsletterForm.querySelector("input").focus();
+      return;
+    }
+
+    submitButton.disabled = true;
+    submitButton.textContent = "Sending";
+    setNewsletterStatus("", "");
+
+    try {
+      const response = await fetch("/api/subscribe", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email })
+      });
+      const result = await response.json();
+
+      if (!response.ok) throw new Error(result.error || "Unable to subscribe.");
+
+      newsletterForm.reset();
+      setNewsletterStatus("Check your inbox to confirm your subscription.", "success");
+    } catch (error) {
+      setNewsletterStatus(error.message || "Unable to subscribe right now. Please try again.", "error");
+    } finally {
+      submitButton.disabled = false;
+      submitButton.textContent = "Subscribe";
+    }
+  });
 })();
