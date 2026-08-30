@@ -23,6 +23,41 @@
 .chapter-about { background-color:#071f4f; } .chapter-about::before { display:none; } .chapter-about h2 { margin-bottom:clamp(3.2rem,6.2vh,4rem); font-size:clamp(4rem,9.6vw,10.4rem); } .chapter-about .about-story { max-width:540px; } .chapter-about .about-story p { max-width:470px; color:rgba(238,225,197,.9); font-size:13.5px; font-weight:400; line-height:1.72; } .chapter-about .about-story .statement { max-width:30ch; color:var(--cream); } @media (max-width:720px) { .chapter-about h2 { margin-bottom:2.75rem; font-size:clamp(3.8rem,17vw,6rem); } .chapter-about .about-story { max-width:100%; } .chapter-about .about-story p { max-width:100%; line-height:1.68; } }
 
 /* Portrait viewports need a separate art-and-copy relationship from the wide desktop court. */
+.about-court { display:none; }
+
+@media (max-width:767px) {
+  :root { --mobile-gutter:clamp(1.25rem,5.5vw,1.5rem); }
+
+  .chapter-about {
+    background-image:none;
+    overflow:hidden;
+  }
+  .chapter-about .about-court {
+    position:absolute;
+    z-index:0;
+    top:50%;
+    left:50%;
+    display:block;
+    width:min(calc(100% - (var(--mobile-gutter) * 2)),26rem);
+    aspect-ratio:2095 / 3451;
+    overflow:hidden;
+    opacity:.56;
+    transform:translate(-50%,-50%);
+    pointer-events:none;
+  }
+  .chapter-about .about-court img {
+    position:absolute;
+    top:50%;
+    left:50%;
+    display:block;
+    width:164.73%;
+    max-width:none;
+    height:auto;
+    transform:translate(-50%,-50%) rotate(90deg);
+    transform-origin:center;
+  }
+}
+
 @media (max-width:720px) {
   :root { --mobile-gutter:clamp(1.25rem,5.5vw,1.5rem); }
 
@@ -32,24 +67,6 @@
 
   .chapter-about {
     background-image:none;
-    overflow:hidden;
-  }
-  .chapter-about::after {
-    position:absolute;
-    z-index:0;
-    top:50%;
-    right:-10.75rem;
-    width:21.5rem;
-    height:35rem;
-    content:"";
-    background-image:url("./assets/RUG PATTERN SIGNAGE.png");
-    background-repeat:no-repeat;
-    background-position:center;
-    background-size:cover;
-    opacity:.82;
-    transform:translateY(-50%) rotate(90deg);
-    transform-origin:center;
-    pointer-events:none;
   }
   .chapter-about .about-content {
     min-height:max(100dvh,60rem);
@@ -73,7 +90,6 @@
     line-height:1.03;
   }
   .chapter-about .chapter-footer {
-    z-index:1;
     left:var(--mobile-gutter);
     bottom:1.55rem;
     text-shadow:0 1px 8px rgba(7,31,79,.7);
