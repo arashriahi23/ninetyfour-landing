@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 760" fill="none">
+  <defs>
+    <linearGradient id="sky" x1="550" y1="0" x2="550" y2="760" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#C3D9DE"/>
+      <stop offset="0.58" stop-color="#98B7C3"/>
+      <stop offset="0.59" stop-color="#4B7487"/>
+      <stop offset="1" stop-color="#2B5266"/>
+    </linearGradient>
+    <pattern id="rugPattern" width="80" height="80" patternUnits="userSpaceOnUse">
+      <rect width="80" height="80" fill="#8B1F22"/>
+      <path d="M10 18L24 8L38 18L24 28L10 18Z" fill="#F0D1AC" opacity="0.75"/>
+      <path d="M44 48L58 38L72 48L58 58L44 48Z" fill="#E8AE87" opacity="0.72"/>
+      <path d="M18 56L28 46L38 56L28 66L18 56Z" fill="#F7E6C0" opacity="0.64"/>
+      <path d="M48 18L58 8L68 18L58 28L48 18Z" fill="#D46E57" opacity="0.7"/>
+      <path d="M0 40H80" stroke="#3A0F18" stroke-width="4" opacity="0.35"/>
+      <path d="M40 0V80" stroke="#3A0F18" stroke-width="4" opacity="0.3"/>
+    </pattern>
+  </defs>
+
+  <rect width="1100" height="760" fill="url(#sky)"/>
+  <path d="M0 414C127 390 239 378 368 392C507 408 633 431 776 420C893 411 989 383 1100 356V760H0V414Z" fill="#205066" opacity="0.84"/>
+  <path d="M0 468C141 440 230 434 362 446C520 460 641 494 779 476C891 461 1001 432 1100 410V760H0V468Z" fill="#366C84" opacity="0.72"/>
+  <path d="M0 530C122 512 243 500 361 520C516 547 671 576 831 558C935 547 1012 530 1100 505V760H0V530Z" fill="#6DA4B8" opacity="0.45"/>
+
+  <rect y="510" width="1100" height="250" fill="url(#rugPattern)"/>
+  <rect y="520" width="1100" height="18" fill="#F4DDB2" opacity="0.38"/>
+  <rect y="720" width="1100" height="12" fill="#F4DDB2" opacity="0.32"/>
+
+  <ellipse cx="728" cy="530" rx="122" ry="16" fill="#4D1D1D" opacity="0.24"/>
+  <rect x="660" y="366" width="150" height="124" rx="10" fill="#2C3439"/>
+  <rect x="675" y="382" width="74" height="44" rx="4" fill="#9EA5A3"/>
+  <circle cx="767" cy="441" r="26" fill="#1E1F20"/>
+  <circle cx="767" cy="441" r="14" fill="#697375"/>
+  <rect x="676" y="437" width="48" height="34" rx="4" fill="#8E867E"/>
+  <path d="M802 357L843 278" stroke="#596063" stroke-width="6" stroke-linecap="round"/>
+  <rect x="686" y="368" width="100" height="10" rx="5" fill="#CED1C8"/>
+
+  <ellipse cx="476" cy="548" rx="46" ry="10" fill="#4D1D1D" opacity="0.22"/>
+  <ellipse cx="477" cy="534" rx="44" ry="8" fill="#EBDDBB"/>
+  <rect x="436" y="516" width="82" height="22" rx="10" fill="#F3E5C3"/>
+  <path d="M463 470H491L506 522H448L463 470Z" fill="#B94930"/>
+  <path d="M451 520C457 549 497 549 503 520" stroke="#E6D6BC" stroke-width="4"/>
+</svg>

@@ -1,0 +1,11 @@
+# macOS Finder metadata
+.DS_Store
+
+# Private configuration for future integrations
+.env
+.env.*
+!.env.example
+
+# Local editor and package-cache files
+.vscode/
+node_modules/
