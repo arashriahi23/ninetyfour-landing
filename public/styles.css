@@ -27,13 +27,6 @@
   :root { --mobile-gutter:clamp(1.25rem,5.5vw,1.5rem); }
 
   .masthead { padding:1rem var(--mobile-gutter); }
-  .chapter-nav {
-    top:3.35rem;
-    right:var(--mobile-gutter);
-    bottom:auto;
-    gap:2px;
-  }
-  .chapter-link { min-height:1.35rem; padding:3px 0; font-size:8px; line-height:1.1; }
   .chapter-corner { top:1rem; right:var(--mobile-gutter); }
   .chapter-content { min-height:100dvh; padding-right:var(--mobile-gutter); padding-left:var(--mobile-gutter); }
 
@@ -81,4 +74,33 @@
   .newsletter-fields input,
   .newsletter-fields button { min-height:2.9rem; }
   .newsletter-fields button { padding-left:.9rem; }
+}
+
+@media (max-width:860px) {
+  .chapter-nav {
+    top:3.25rem;
+    right:clamp(1.25rem,5.5vw,2rem);
+    bottom:auto;
+    left:clamp(1.25rem,5.5vw,2rem);
+    display:flex;
+    justify-content:space-between;
+    gap:.35rem;
+    padding:.18rem .35rem;
+    color:#fff8e9;
+    background:rgba(7,31,79,.84);
+    transform:none;
+  }
+  .chapter-link {
+    display:flex;
+    grid-template-columns:none;
+    flex:0 1 auto;
+    align-items:center;
+    gap:.18rem;
+    min-height:1.35rem;
+    padding:3px 0;
+    font-size:clamp(6px,1.45vw,8px);
+    line-height:1.1;
+    white-space:nowrap;
+  }
+  .chapter-link.is-active { transform:none; text-decoration:underline; text-underline-offset:4px; }
 }
