@@ -4,9 +4,10 @@ Static homepage for the Ninety Four brand.
 
 ## Run locally
 
-Open `index.html` directly in a browser, or serve the directory with a simple static server:
+Serve the `public` directory with a simple static server:
 
 ```bash
+cd public
 python3 -m http.server
 ```
 

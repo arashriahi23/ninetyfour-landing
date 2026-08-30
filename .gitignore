@@ -9,3 +9,8 @@
 # Local editor and package-cache files
 .vscode/
 node_modules/
+
+# Cloudflare local files and local runtime secrets
+.wrangler/
+.dev.vars*
+!.dev.vars.example
