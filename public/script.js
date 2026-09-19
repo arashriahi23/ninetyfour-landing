@@ -20,8 +20,14 @@
       else link.removeAttribute("aria-current");
     });
     if (masthead?.dataset) {
-      const themes = { "chapter-03": "dark", "chapter-04": "earth", "chapter-05": "dark" };
-      masthead.dataset.theme = themes[current] || "light";
+      const themes = {
+        "chapter-01": "green",
+        "chapter-02": "navy",
+        "chapter-03": "burgundy",
+        "chapter-04": "earth",
+        "chapter-05": "dark"
+      };
+      masthead.dataset.theme = themes[current] || "green";
     }
   };
   const queueChapterUpdate = () => {
