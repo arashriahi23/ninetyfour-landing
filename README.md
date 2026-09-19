@@ -16,7 +16,7 @@ Then visit `http://localhost:8000`.
 ## Integrations
 
 - Newsletter signup posts to `/api/subscribe`. The Worker requires the `BREVO_API_KEY` secret and `BREVO_TEMP_LIST_ID` (currently `4`). Keep the existing Brevo confirmation automation enabled. A static local server does not implement this endpoint.
-- Event inquiries use a `mailto:` link to `arash@theninety4.com` with event-detail prompts. There is no configured inquiry-form backend. Opening an email draft does not send an inquiry or confirm a booking.
+- Event inquiries use a `mailto:` link to `Admin@theninety4.com` with event-detail prompts. There is no configured inquiry-form backend. Opening an email draft does not send an inquiry or confirm a booking.
 - Instagram retains the existing `ninetyfour.la` destination.
 
 ## Preview and assets
