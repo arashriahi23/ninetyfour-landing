@@ -185,7 +185,7 @@ img { display: block; max-width: 100%; }
   .about-story .lead { font-size: 1.25rem; }
   .about-story p { font-size: 1rem; }
   .chapter-about::after { background: linear-gradient(180deg, rgba(7,31,79,.34) 0%, rgba(7,31,79,.7) 67%, var(--red) 100%); }
-  .court-artwork img { top: 50%; left: 50%; width: 164.73vw; height: auto; object-fit: contain; transform: translate(-50%, -50%) rotate(90deg); }
+  .court-artwork img { position: absolute; top: 50%; left: 50%; width: 164.73vw; height: auto; object-fit: contain; transform: translate(-50%, -50%) rotate(90deg); }
   .events-intro h2 { margin-bottom: 1.5rem; }
   .events-intro p { max-width: 36rem; }
   .event-inquiry h3 { font-size: 1.8rem; }
