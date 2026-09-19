@@ -16,14 +16,14 @@ Then visit `http://localhost:8000`.
 ## Integrations
 
 - Newsletter signup posts to `/api/subscribe`. The Worker requires the `BREVO_API_KEY` secret and `BREVO_TEMP_LIST_ID` (currently `4`). Keep the existing Brevo confirmation automation enabled. A static local server does not implement this endpoint.
-- Event inquiries use a `mailto:` link to `Admin@theninety4.com` with event-detail prompts. There is no configured inquiry-form backend. Opening an email draft does not send an inquiry or confirm a booking.
+- Collaboration inquiries use an accessible form to compose a prefilled `mailto:` draft to `Admin@theninety4.com`. There is no inquiry-form backend; opening the draft does not send an inquiry or confirm a booking.
 - Instagram retains the existing `ninetyfour.la` destination.
 
 ## Preview and assets
 
 - Review changes on the existing `preview` branch and its Cloudflare preview URL. Production uses `main`; do not merge or push to `main` without explicit publishing approval.
 - The horse artwork is served as responsive JPEG copies; the original PNG is retained. The blue court/rug remains uncropped. No imagery is presented as evidence of cart operations or available merchandise.
-- Product availability, launch date, booking availability, and the drink menu still need business confirmation. The preview makes no claims about those details.
+- The Shop is an editorial category index only. It contains no fabricated products, prices, inventory, checkout, release dates, or Shopify integration.
 
 ## Verification
 

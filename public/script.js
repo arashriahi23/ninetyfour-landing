@@ -19,6 +19,10 @@
       if (active) link.setAttribute("aria-current", "location");
       else link.removeAttribute("aria-current");
     });
+    if (masthead?.dataset) {
+      const themes = { "chapter-03": "dark", "chapter-04": "red", "chapter-05": "dark" };
+      masthead.dataset.theme = themes[current] || "light";
+    }
   };
   const queueChapterUpdate = () => {
     if (framePending) return;
@@ -48,6 +52,27 @@
   });
   document.addEventListener("focusin", (event) => {
     if (!mobileMenu.contains(event.target)) mobileMenu.open = false;
+  });
+
+  const collaborationForm = document.querySelector("[data-collaboration-form]");
+  collaborationForm?.addEventListener("submit", (event) => {
+    event.preventDefault();
+    if (!collaborationForm.checkValidity()) {
+      collaborationForm.reportValidity();
+      return;
+    }
+    const data = new FormData(collaborationForm);
+    const lines = [
+      ["Name", data.get("name")],
+      ["Email", data.get("email")],
+      ["Type", data.get("type")],
+      ["Preferred date", data.get("date")],
+      ["Location", data.get("location")],
+      ["Approximate guest count", data.get("guests")],
+      ["Additional details", data.get("details")]
+    ].filter(([, value]) => String(value || "").trim());
+    const body = lines.map(([label, value]) => `${label}: ${String(value).trim()}`).join("\n");
+    window.location.href = `mailto:Admin@theninety4.com?subject=${encodeURIComponent("Ninety Four collaboration inquiry")}&body=${encodeURIComponent(body)}`;
   });
 
   const newsletterForm = document.querySelector("[data-newsletter-form]");
@@ -101,7 +126,7 @@
       submitting = false;
       newsletterForm.removeAttribute("aria-busy");
       submitButton.disabled = false;
-      submitButton.textContent = "Subscribe";
+      submitButton.textContent = "Join";
     }
   });
   newsletterForm?.querySelector("input[name='email']")?.addEventListener("input", (event) => {
