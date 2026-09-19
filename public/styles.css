@@ -4,7 +4,8 @@
   --color-navy: #071f4f;
   --color-red: #981f24;
   --color-burgundy: #681e2b;
-  --color-dusty-rose: #b5626c;
+  --color-green: #154c40;
+  --color-earth: #c95c32;
   --color-brand-black: #11120e;
   --color-muted: #605d54;
   --color-line: #aaa18e;
@@ -12,6 +13,8 @@
   --paper: var(--color-paper);
   --navy: var(--color-navy);
   --red: var(--color-red);
+  --green: var(--color-green);
+  --earth: var(--color-earth);
   --ink: var(--color-brand-black);
   --muted: var(--color-muted);
   --line: var(--color-line);
@@ -43,7 +46,7 @@ img { display: block; max-width: 100%; }
 .skip-link:focus { transform: none; }
 
 .masthead { position: fixed; z-index: 30; top: 0; left: 0; right: 0; height: var(--header-height); display: flex; align-items: center; justify-content: space-between; gap: 1.5rem; padding: .5rem var(--gutter); background: var(--cream); color: var(--navy); border-bottom: 1px solid var(--line); transition: background-color .35s ease, color .35s ease, border-color .35s ease; }
-.masthead[data-theme="rose"] { background: var(--color-dusty-rose); color: var(--navy); border-color: var(--navy); }
+.masthead[data-theme="earth"] { background: var(--earth); color: var(--navy); border-color: var(--navy); }
 .masthead[data-theme="dark"] { background: var(--ink); color: var(--cream); border-color: #514a43; }
 .wordmark { display: flex; align-items: center; min-height: 44px; width: 9rem; flex-shrink: 0; }
 .index-logo { display: block; width: 100%; aspect-ratio: 6749 / 816; background: currentColor; -webkit-mask: url("./assets/Ninety Four Wordmark.png") center / contain no-repeat; mask: url("./assets/Ninety Four Wordmark.png") center / contain no-repeat; }
@@ -67,11 +70,9 @@ img { display: block; max-width: 100%; }
 .button-link { display: inline-flex; align-items: center; justify-content: center; min-height: 52px; padding: .8rem 1.5rem; border: 0; border-radius: 0; background: var(--navy); color: var(--cream); font-size: .95rem; font-weight: 500; text-align: center; text-decoration: none; }
 .button-link:hover { background: var(--ink); }
 
-.chapter-landing { color: var(--cream); background: var(--navy); }
-.horsemen-stage { position: absolute; inset: 0; overflow: hidden; z-index: -1; }
-.horsemen-stage img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 40%; }
-.horsemen-stage::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(7,31,79,.02) 18%, rgba(7,31,79,.18) 46%, rgba(7,31,79,.92) 78%, var(--navy) 100%); }
-.landing-content .chapter-heading .eyebrow { padding: .35rem .6rem; background: var(--navy); }
+.chapter-landing { color: var(--cream); background: var(--green); }
+.chapter-landing::after { content: ""; position: absolute; z-index: 0; right: 0; bottom: 0; left: 0; height: clamp(4rem, 10vh, 7rem); pointer-events: none; background: linear-gradient(180deg, transparent 0%, var(--navy) 100%); }
+.landing-content { z-index: 1; }
 .hero-copy { margin-top: auto; padding-top: clamp(14rem, 32svh, 24rem); }
 .landing-caption { margin-bottom: 1.2rem; }
 .landing-content h1 { width: min(100%, 70rem); margin-bottom: 1.4rem; }
@@ -103,12 +104,20 @@ img { display: block; max-width: 100%; }
 .release-note p { font-size: 1rem; }
 .shop-content .chapter-footer { border-top: 1px solid #77655d; }
 
-.chapter-collaborations { background: linear-gradient(180deg, var(--color-dusty-rose) 0%, var(--color-dusty-rose) 78%, var(--color-burgundy) 92%, var(--ink) 100%); color: var(--cream); }
-.collaborations-layout { display: grid; grid-template-columns: 1fr .86fr; align-items: start; gap: clamp(3rem, 7vw, 8rem); margin: auto 0; padding: clamp(3rem, 7vh, 6rem) 0; }
+.chapter-collaborations { overflow: hidden; background: var(--earth); color: var(--cream); }
+.chapter-collaborations::before, .chapter-collaborations::after { content: ""; position: absolute; z-index: 0; right: 0; left: 0; height: clamp(4rem, 9vh, 7rem); pointer-events: none; }
+.chapter-collaborations::before { top: 0; background: linear-gradient(180deg, var(--ink), transparent); }
+.chapter-collaborations::after { bottom: 0; background: linear-gradient(180deg, transparent, var(--ink)); }
+.collaborations-content { z-index: 1; }
+.collaborations-layout { display: grid; grid-template-columns: minmax(0, .86fr) minmax(24rem, 1.14fr); align-items: start; gap: clamp(2.5rem, 6vw, 7rem); margin: 0; padding: clamp(3rem, 7vh, 6rem) 0; }
+.collaborations-intro { grid-row: 1 / span 2; align-self: start; }
 .collaborations-intro > .eyebrow { margin-bottom: 2.5rem; }
 .collaborations-intro h2 { margin-bottom: clamp(3rem, 8vh, 6rem); font-size: clamp(3.3rem, 5.8vw, 6.5rem); white-space: nowrap; }
 .collaboration-lead { font-size: clamp(1.25rem, 2vw, 1.8rem); line-height: 1.35; text-transform: uppercase; }
 .collaboration-types { margin-top: 2rem; color: var(--navy); font-size: .7rem; letter-spacing: .09em; text-transform: uppercase; }
+.collaborations-artwork { position: relative; aspect-ratio: 1; overflow: hidden; background: var(--earth); }
+.collaborations-artwork img { width: 100%; height: 100%; object-fit: contain; object-position: center; }
+.collaborations-artwork::after { content: ""; position: absolute; inset: 0; pointer-events: none; background: linear-gradient(180deg, transparent 80%, rgba(201,92,50,.42) 93%, var(--earth) 100%); }
 .collaboration-form { scroll-margin-top: calc(var(--header-height) + 1rem); padding: 2rem; background: var(--navy); color: var(--cream); }
 .form-heading { display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; padding-bottom: 1.25rem; border-bottom: 1px solid currentColor; }
 .form-heading h3 { font-size: clamp(1.7rem, 2.7vw, 2.5rem); }
@@ -123,7 +132,7 @@ img { display: block; max-width: 100%; }
 .form-grid input:focus-visible, .form-grid select:focus-visible, .form-grid textarea:focus-visible { outline: 2px solid var(--cream); outline-offset: 3px; }
 .form-details { grid-column: 1 / -1; }
 .collaboration-form .button-link { width: 100%; background: var(--cream); color: var(--navy); }
-.collaboration-form .button-link:hover { background: var(--color-dusty-rose); color: var(--navy); }
+.collaboration-form .button-link:hover { background: var(--earth); color: var(--navy); }
 .form-note { margin-top: .9rem; font-size: .76rem; line-height: 1.45; }
 .form-note a { display: inline-flex; min-height: 32px; align-items: center; }
 .collaborations-content .chapter-footer { border-top: 1px solid color-mix(in srgb, var(--cream) 52%, transparent); }
@@ -147,7 +156,7 @@ img { display: block; max-width: 100%; }
 .newsletter-fields input::placeholder { color: #bfb7a7; opacity: 1; }
 .newsletter-fields input[aria-invalid="true"] { outline: 2px solid #f29a80; outline-offset: -2px; }
 .newsletter-fields button { min-height: 54px; padding: .8rem 1.2rem; border: 0; border-radius: 0; background: var(--cream); color: var(--ink); font-size: .875rem; text-transform: uppercase; }
-.newsletter-fields button:hover:not(:disabled) { background: var(--color-dusty-rose); color: var(--navy); }
+.newsletter-fields button:hover:not(:disabled) { background: var(--earth); color: var(--navy); }
 .newsletter-note { margin-top: .8rem; color: #bfb7a7; font-size: .8rem; }
 .newsletter-status { min-height: 1.6em; margin-top: .8rem; font-size: .875rem; }
 .newsletter-status[data-state="error"] { color: #f29a80; }
@@ -192,8 +201,6 @@ img { display: block; max-width: 100%; }
   .chapter-footer p { max-width: 50%; }
   .chapter-footer a { max-width: 48%; text-align: right; }
   h2 { font-size: clamp(3rem, 12.6vw, 5.5rem); }
-  .horsemen-stage img { object-position: 55% 25%; }
-  .horsemen-stage::after { background: linear-gradient(180deg, rgba(7,31,79,.03) 18%, rgba(7,31,79,.12) 34%, rgba(7,31,79,.96) 67%, var(--navy) 100%); }
   .hero-copy { padding-top: 15rem; }
   .landing-caption { margin-bottom: 1rem; }
   .landing-content h1 { margin-bottom: 1rem; }
@@ -214,8 +221,10 @@ img { display: block; max-width: 100%; }
   .release-note { display: block; }
   .release-note .text-link { margin-top: 1rem; }
   .collaborations-intro > .eyebrow { margin-bottom: 1.5rem; }
+  .collaborations-intro { grid-row: auto; }
   .collaborations-intro h2 { margin-bottom: 2.5rem; font-size: clamp(2.7rem, 11vw, 5rem); white-space: normal; overflow-wrap: anywhere; }
   .collaboration-lead { font-size: 1.2rem; }
+  .collaborations-artwork { width: 100%; }
   .collaboration-form { padding: 1.25rem; }
   .form-heading { display: block; }
   .form-heading p { margin-top: .5rem; }

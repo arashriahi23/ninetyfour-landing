@@ -20,7 +20,7 @@
       else link.removeAttribute("aria-current");
     });
     if (masthead?.dataset) {
-      const themes = { "chapter-03": "dark", "chapter-04": "rose", "chapter-05": "dark" };
+      const themes = { "chapter-03": "dark", "chapter-04": "earth", "chapter-05": "dark" };
       masthead.dataset.theme = themes[current] || "light";
     }
   };
