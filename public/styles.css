@@ -150,7 +150,6 @@ img { display: block; max-width: 100%; }
 .newsletter-fields input[aria-invalid="true"] { outline: 2px solid #f29a80; outline-offset: -2px; }
 .newsletter-fields button { min-height: 54px; padding: .8rem 1.2rem; border: 0; border-radius: 0; background: var(--cream); color: var(--ink); font-size: .875rem; text-transform: uppercase; }
 .newsletter-fields button:hover:not(:disabled) { background: var(--earth); color: var(--navy); }
-.newsletter-note { margin-top: .8rem; color: #bfb7a7; font-size: .8rem; }
 .newsletter-status { min-height: 1.6em; margin-top: .8rem; font-size: .875rem; }
 .newsletter-status[data-state="error"] { color: #f29a80; }
 .newsletter-status[data-state="success"] { color: #b9ddc5; }
