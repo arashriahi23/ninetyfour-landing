@@ -1,73 +1,212 @@
 (() => {
-  const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
-  const primaryImage = document.querySelector(".horsemen-primary");
-  const echoImage = document.querySelector(".horsemen-echo");
-  const chapters = [...document.querySelectorAll("[data-chapter]")];
-  const links = [...document.querySelectorAll(".chapter-link")];
-  let scrollY = window.scrollY;
-  let rafId;
-  const updateArtwork = (time) => {
-    if (!reducedMotion.matches) {
-      const idleX = Math.sin(time * .00012) * 1.25;
-      const idleY = Math.cos(time * .00016) * .9;
-      const influence = Math.min(scrollY / window.innerHeight, 1) * 2.7;
-      const transform = `translate3d(calc(-50% + ${idleX - influence}%), calc(-50% + ${idleY - influence * .35}%), 0) scale(${1.07 + influence * .008})`;
-      primaryImage.style.transform = transform;
-      echoImage.style.transform = transform.replace("1.07", "1.08");
+  const chapters = [...document.querySelectorAll("section[data-chapter]")];
+  const links = [...document.querySelectorAll("[data-chapter-link]")];
+  const masthead = document.querySelector(".masthead");
+  const mobileMenu = document.querySelector(".mobile-menu");
+  let framePending = false;
+
+  const updateActiveChapter = () => {
+    framePending = false;
+    // A reading line also works for chapters taller than the viewport.
+    const readingLine = masthead.offsetHeight + window.innerHeight * .2;
+    let current = chapters[0]?.id;
+    chapters.forEach((chapter) => {
+      if (chapter.getBoundingClientRect().top <= readingLine) current = chapter.id;
+    });
+    links.forEach((link) => {
+      const active = link.dataset.chapterLink === current;
+      link.classList.toggle("is-active", active);
+      if (active) link.setAttribute("aria-current", "location");
+      else link.removeAttribute("aria-current");
+    });
+    if (masthead?.dataset) {
+      const themes = {
+        "chapter-01": "green",
+        "chapter-02": "navy",
+        "chapter-03": "burgundy",
+        "chapter-04": "earth",
+        "chapter-05": "dark"
+      };
+      masthead.dataset.theme = themes[current] || "green";
     }
-    rafId = requestAnimationFrame(updateArtwork);
   };
-  const observer = new IntersectionObserver((entries) => entries.forEach((entry) => { if (entry.isIntersecting) links.forEach((link) => link.classList.toggle("is-active", link.dataset.chapter === entry.target.id)); }), { threshold:.56 });
-  chapters.forEach((chapter) => observer.observe(chapter));
-  window.addEventListener("scroll", () => { scrollY = window.scrollY; }, { passive:true });
-  reducedMotion.addEventListener("change", () => { if (reducedMotion.matches) cancelAnimationFrame(rafId); else rafId = requestAnimationFrame(updateArtwork); });
-  if (!reducedMotion.matches) rafId = requestAnimationFrame(updateArtwork);
+  const queueChapterUpdate = () => {
+    if (framePending) return;
+    framePending = true;
+    requestAnimationFrame(updateActiveChapter);
+  };
+  window.addEventListener("scroll", queueChapterUpdate, { passive: true });
+  window.addEventListener("resize", () => {
+    if (window.innerWidth > 1100) mobileMenu.open = false;
+    queueChapterUpdate();
+  });
+  window.addEventListener("load", updateActiveChapter);
+  updateActiveChapter();
+
+  document.addEventListener("click", (event) => {
+    const anchor = event.target.closest("a[href^='#']");
+    if (anchor && !event.metaKey && !event.ctrlKey && !event.shiftKey && !event.altKey) {
+      mobileMenu.open = false;
+      document.querySelector(anchor.getAttribute("href"))?.focus({ preventScroll: true });
+    } else if (!mobileMenu.contains(event.target)) mobileMenu.open = false;
+  });
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape" && mobileMenu.open) {
+      mobileMenu.open = false;
+      mobileMenu.querySelector("summary").focus();
+    }
+  });
+  document.addEventListener("focusin", (event) => {
+    if (!mobileMenu.contains(event.target)) mobileMenu.open = false;
+  });
+
+  const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  const collaborationForm = document.querySelector("[data-collaboration-form]");
+  collaborationForm?.addEventListener("submit", (event) => {
+    event.preventDefault();
+    if (!collaborationForm.checkValidity()) {
+      collaborationForm.reportValidity();
+      return;
+    }
+    const data = new FormData(collaborationForm);
+    const lines = [
+      ["Name", data.get("name")],
+      ["Email", data.get("email")],
+      ["Type", data.get("type")],
+      ["Preferred date", data.get("date")],
+      ["Location", data.get("location")],
+      ["Approximate guest count", data.get("guests")],
+      ["Additional details", data.get("details")]
+    ].filter(([, value]) => String(value || "").trim());
+    const body = lines.map(([label, value]) => `${label}: ${String(value).trim()}`).join("\n");
+    window.location.href = `mailto:Admin@theninety4.com?subject=${encodeURIComponent("Ninety Four collaboration inquiry")}&body=${encodeURIComponent(body)}`;
+  });
+
+  const contactForm = document.querySelector("[data-contact-form]");
+  const contactStatus = document.querySelector("[data-contact-form-status]");
+  let contactSubmitting = false;
+  const setContactStatus = (message, state = "") => {
+    if (!contactStatus) return;
+    contactStatus.textContent = message;
+    contactStatus.dataset.state = state;
+  };
+  const resetContactTimer = () => {
+    const startedAt = contactForm?.querySelector("input[name='startedAt']");
+    if (startedAt) startedAt.value = String(Date.now());
+  };
+  resetContactTimer();
+  contactForm?.addEventListener("submit", async (event) => {
+    event.preventDefault();
+    if (contactSubmitting) return;
+    if (!contactForm.checkValidity()) {
+      contactForm.reportValidity();
+      return;
+    }
+    const data = new FormData(contactForm);
+    const email = String(data.get("email") || "").trim();
+    const emailInput = contactForm.querySelector("input[name='email']");
+    const submitButton = contactForm.querySelector("button[type='submit']");
+    if (!emailPattern.test(email)) {
+      setContactStatus("Enter a valid email address.", "error");
+      emailInput.setAttribute("aria-invalid", "true");
+      emailInput.focus();
+      return;
+    }
+    if (window.location.protocol === "file:") {
+      setContactStatus("Contact is available on the hosted website, not this local file preview.", "error");
+      return;
+    }
+    contactSubmitting = true;
+    emailInput.removeAttribute("aria-invalid");
+    contactForm.setAttribute("aria-busy", "true");
+    submitButton.disabled = true;
+    submitButton.textContent = "Sending";
+    setContactStatus("");
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: String(data.get("name") || "").trim(),
+          email,
+          message: String(data.get("message") || "").trim(),
+          website: String(data.get("website") || "").trim(),
+          startedAt: Number(data.get("startedAt"))
+        })
+      });
+      const result = await response.json().catch(() => ({}));
+      if (!response.ok || !result.ok) throw new Error(result.error || "Unable to send your message right now. Please try again.");
+      contactForm.reset();
+      resetContactTimer();
+      setContactStatus("Message sent. We’ll be in touch.", "success");
+    } catch (error) {
+      const message = error instanceof TypeError ? "Unable to connect. Please try again." : error.message;
+      setContactStatus(message || "Unable to send your message right now. Please try again.", "error");
+    } finally {
+      contactSubmitting = false;
+      contactForm.removeAttribute("aria-busy");
+      submitButton.disabled = false;
+      submitButton.textContent = "Send message";
+    }
+  });
+  contactForm?.querySelector("input[name='email']")?.addEventListener("input", (event) => {
+    event.target.removeAttribute("aria-invalid");
+  });
 
   const newsletterForm = document.querySelector("[data-newsletter-form]");
   const newsletterStatus = document.querySelector("[data-newsletter-status]");
-  const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
+  let submitting = false;
   const setNewsletterStatus = (message, state = "") => {
+    if (!newsletterStatus) return;
     newsletterStatus.textContent = message;
     newsletterStatus.dataset.state = state;
   };
-
   if (new URLSearchParams(window.location.search).get("subscription") === "confirmed") {
     setNewsletterStatus("Your subscription is confirmed. Welcome to Full Court Access.", "success");
   }
-
   newsletterForm?.addEventListener("submit", async (event) => {
     event.preventDefault();
+    if (submitting) return;
     const email = new FormData(newsletterForm).get("email")?.trim();
     const submitButton = newsletterForm.querySelector("button[type='submit']");
-
+    const emailInput = newsletterForm.querySelector("input[name='email']");
     if (!emailPattern.test(email || "")) {
       setNewsletterStatus("Enter a valid email address.", "error");
-      newsletterForm.querySelector("input").focus();
+      emailInput.setAttribute("aria-invalid", "true");
+      emailInput.focus();
       return;
     }
-
+    if (window.location.protocol === "file:") {
+      setNewsletterStatus("Signup is available on the hosted website, not this local file preview.", "error");
+      return;
+    }
+    submitting = true;
+    emailInput.removeAttribute("aria-invalid");
+    newsletterForm.setAttribute("aria-busy", "true");
     submitButton.disabled = true;
     submitButton.textContent = "Sending";
-    setNewsletterStatus("", "");
-
+    setNewsletterStatus("");
     try {
       const response = await fetch("/api/subscribe", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email })
       });
-      const result = await response.json();
-
-      if (!response.ok) throw new Error(result.error || "Unable to subscribe.");
-
+      const result = await response.json().catch(() => ({}));
+      if (!response.ok || !result.ok) throw new Error(result.error || "Unable to subscribe right now. Please try again.");
       newsletterForm.reset();
       setNewsletterStatus("Check your inbox to confirm your subscription.", "success");
     } catch (error) {
-      setNewsletterStatus(error.message || "Unable to subscribe right now. Please try again.", "error");
+      const message = error instanceof TypeError ? "Unable to connect. Please try again." : error.message;
+      setNewsletterStatus(message || "Unable to subscribe right now. Please try again.", "error");
     } finally {
+      submitting = false;
+      newsletterForm.removeAttribute("aria-busy");
       submitButton.disabled = false;
-      submitButton.textContent = "Subscribe";
+      submitButton.textContent = "Join";
     }
+  });
+  newsletterForm?.querySelector("input[name='email']")?.addEventListener("input", (event) => {
+    event.target.removeAttribute("aria-invalid");
   });
 })();

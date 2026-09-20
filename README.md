@@ -1,6 +1,6 @@
 # Ninety Four Homepage
 
-Static homepage for the Ninety Four brand.
+Five-chapter static site for Ninety Four, with a Cloudflare Worker handling Brevo newsletter signup and general contact submissions.
 
 ## Run locally
 
@@ -13,9 +13,19 @@ python3 -m http.server
 
 Then visit `http://localhost:8000`.
 
-## Notes
+## Integrations
 
-- The page is intentionally built without a framework because the repo was empty.
-- The homepage structure, copy, and visual system are based on the brand brief and references shared in chat.
-- The image panels are local SVG scene studies inspired by the supplied references and can be swapped for final photography later.
-- Replace the placeholder social links, visit details, and email form action before launch.
+- Newsletter signup posts to `/api/subscribe`. The Worker requires the `BREVO_API_KEY` secret and `BREVO_TEMP_LIST_ID` (currently `4`). Keep the existing Brevo confirmation automation enabled. A static local server does not implement this endpoint.
+- Collaboration inquiries use an accessible form to compose a prefilled `mailto:` draft to `Admin@theninety4.com`. There is no inquiry-form backend; opening the draft does not send an inquiry or confirm a booking.
+- General contact posts to `/api/contact`. The Worker sends the message to `Admin@theninety4.com` through Brevo transactional email, using `CONTACT_SENDER_EMAIL` as the verified sender and the visitor as `replyTo`. `BREVO_API_KEY` remains server-side. The default sender is `Admin@theninety4.com`, which must be verified in Brevo before deployment.
+- Instagram retains the existing `ninetyfour.la` destination.
+
+## Preview and assets
+
+- Review changes on the existing `preview` branch and its Cloudflare preview URL. Production uses `main`; do not merge or push to `main` without explicit publishing approval.
+- The horse artwork is served as responsive JPEG copies; the original PNG is retained. The blue court/rug remains uncropped. No imagery is presented as evidence of cart operations or available merchandise.
+- The Shop is an editorial category index only. It contains no fabricated products, prices, inventory, checkout, release dates, or Shopify integration.
+
+## Verification
+
+Run `node --test tests/newsletter.test.mjs` for mocked newsletter validation, success, failure, and duplicate-submission behavior. These tests make no network requests. Check the page in desktop and phone viewports, use the chapter menu by keyboard, and inspect the inquiry URL without sending mail. Do not submit real email addresses as a test.
