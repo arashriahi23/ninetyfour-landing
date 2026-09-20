@@ -35,11 +35,28 @@ test("contact Worker sends only to Admin and uses visitor as reply-to", async ()
     assert.equal(response.status, 202);
     assert.equal(outbound[0], "https://api.brevo.com/v3/smtp/email");
     const message = JSON.parse(outbound[1].body);
-    assert.deepEqual(message.to, [{ name: "Ninety Four", email: "Admin@theninety4.com" }]);
+    assert.deepEqual(message.to, [{ name: "Ninety Four", email: "admin@theninety4.com" }]);
     assert.equal(message.cc, undefined);
     assert.equal(message.bcc, undefined);
     assert.deepEqual(message.replyTo, { name: "Arash Riahi", email: "hello@example.com" });
     assert.equal(message.sender.email, "Admin@theninety4.com");
+    assert.equal(message.subject, "NINETY FOUR — NEW CONTACT MESSAGE");
+    assert.equal(message.textContent, "NINETY FOUR\nNEW CONTACT MESSAGE\n\nNAME\nArash Riahi\n\nEMAIL\nhello@example.com\n\nMESSAGE\nI would like to learn more.\n\nSOURCE\nninetyfourla.com — Contact");
+  } finally {
+    globalThis.fetch = originalFetch;
+  }
+});
+
+test("contact Worker rejects malformed input and reports provider failure", async () => {
+  assert.equal((await worker.fetch(contactRequest({ email: "invalid" }), env)).status, 400);
+  assert.equal((await worker.fetch(contactRequest({ message: "" }), env)).status, 400);
+
+  const originalFetch = globalThis.fetch;
+  globalThis.fetch = async () => new Response("provider failure", { status: 500 });
+  try {
+    const response = await worker.fetch(contactRequest(), env);
+    assert.equal(response.status, 502);
+    assert.equal((await response.json()).ok, undefined);
   } finally {
     globalThis.fetch = originalFetch;
   }

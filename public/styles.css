@@ -132,9 +132,9 @@ img { display: block; max-width: 100%; }
 .contact-form .form-grid { grid-template-columns: 1fr; margin-top: 0; }
 .contact-form .button-link { width: 100%; background: var(--cream); color: var(--ink); }
 .contact-form .button-link:hover:not(:disabled) { background: var(--earth); color: var(--navy); }
-.contact-form-status { min-height: 1.6em; margin-top: .8rem; font-size: .875rem; }
-.contact-form-status[data-state="error"] { color: #f29a80; }
-.contact-form-status[data-state="success"] { color: #b9ddc5; }
+.form-status { min-height: 1.6em; margin-top: .8rem; font-size: .875rem; }
+.form-status[data-state="error"] { color: #f29a80; }
+.form-status[data-state="success"] { color: #b9ddc5; }
 .form-honeypot { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
 .instagram-link { display: flex; align-items: center; gap: .65rem; min-height: 44px; font-size: .875rem; text-decoration: none; }
 .contact-form + .instagram-link { margin-top: 1rem; }

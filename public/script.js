@@ -61,96 +61,104 @@
   });
 
   const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  const collaborationForm = document.querySelector("[data-collaboration-form]");
-  collaborationForm?.addEventListener("submit", (event) => {
-    event.preventDefault();
-    if (!collaborationForm.checkValidity()) {
-      collaborationForm.reportValidity();
-      return;
-    }
-    const data = new FormData(collaborationForm);
-    const lines = [
-      ["Name", data.get("name")],
-      ["Email", data.get("email")],
-      ["Type", data.get("type")],
-      ["Preferred date", data.get("date")],
-      ["Location", data.get("location")],
-      ["Approximate guest count", data.get("guests")],
-      ["Additional details", data.get("details")]
-    ].filter(([, value]) => String(value || "").trim());
-    const body = lines.map(([label, value]) => `${label}: ${String(value).trim()}`).join("\n");
-    window.location.href = `mailto:Admin@theninety4.com?subject=${encodeURIComponent("Ninety Four collaboration inquiry")}&body=${encodeURIComponent(body)}`;
+  const setupMessageForm = ({ formSelector, statusSelector, endpoint, buttonLabel, successMessage, buildPayload }) => {
+    const form = document.querySelector(formSelector);
+    const status = document.querySelector(statusSelector);
+    if (!form || !status) return;
+
+    let submitting = false;
+    const emailInput = form.querySelector("input[name='email']");
+    const submitButton = form.querySelector("button[type='submit']");
+    const startedAt = form.querySelector("input[name='startedAt']");
+    const setStatus = (message, state = "") => {
+      status.textContent = message;
+      status.dataset.state = state;
+    };
+    const resetTimer = () => { startedAt.value = String(Date.now()); };
+    resetTimer();
+
+    form.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      if (submitting) return;
+      if (!form.checkValidity()) {
+        form.reportValidity();
+        return;
+      }
+
+      const data = new FormData(form);
+      const email = String(data.get("email") || "").trim();
+      if (!emailPattern.test(email)) {
+        setStatus("ENTER A VALID EMAIL ADDRESS.", "error");
+        emailInput.setAttribute("aria-invalid", "true");
+        emailInput.focus();
+        return;
+      }
+      if (window.location.protocol === "file:") {
+        setStatus("SOMETHING WENT WRONG. PLEASE TRY AGAIN.", "error");
+        return;
+      }
+
+      submitting = true;
+      emailInput.removeAttribute("aria-invalid");
+      form.setAttribute("aria-busy", "true");
+      submitButton.disabled = true;
+      submitButton.textContent = "SENDING...";
+      setStatus("");
+      try {
+        const response = await fetch(endpoint, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(buildPayload(data, email))
+        });
+        const result = await response.json().catch(() => ({}));
+        if (!response.ok || !result.ok) throw new Error("Submission failed");
+        form.reset();
+        resetTimer();
+        setStatus(successMessage, "success");
+      } catch {
+        setStatus("SOMETHING WENT WRONG. PLEASE TRY AGAIN.", "error");
+      } finally {
+        submitting = false;
+        form.removeAttribute("aria-busy");
+        submitButton.disabled = false;
+        submitButton.textContent = buttonLabel;
+      }
+    });
+    emailInput.addEventListener("input", () => emailInput.removeAttribute("aria-invalid"));
+  };
+
+  setupMessageForm({
+    formSelector: "[data-collaboration-form]",
+    statusSelector: "[data-collaboration-form-status]",
+    endpoint: "/api/collaboration",
+    buttonLabel: "Send inquiry",
+    successMessage: "MESSAGE RECEIVED. WE’LL BE IN TOUCH.",
+    buildPayload: (data, email) => ({
+      name: String(data.get("name") || "").trim(),
+      email,
+      type: String(data.get("type") || "").trim(),
+      date: String(data.get("date") || "").trim(),
+      location: String(data.get("location") || "").trim(),
+      guests: String(data.get("guests") || "").trim(),
+      details: String(data.get("details") || "").trim(),
+      website: String(data.get("website") || "").trim(),
+      startedAt: Number(data.get("startedAt"))
+    })
   });
 
-  const contactForm = document.querySelector("[data-contact-form]");
-  const contactStatus = document.querySelector("[data-contact-form-status]");
-  let contactSubmitting = false;
-  const setContactStatus = (message, state = "") => {
-    if (!contactStatus) return;
-    contactStatus.textContent = message;
-    contactStatus.dataset.state = state;
-  };
-  const resetContactTimer = () => {
-    const startedAt = contactForm?.querySelector("input[name='startedAt']");
-    if (startedAt) startedAt.value = String(Date.now());
-  };
-  resetContactTimer();
-  contactForm?.addEventListener("submit", async (event) => {
-    event.preventDefault();
-    if (contactSubmitting) return;
-    if (!contactForm.checkValidity()) {
-      contactForm.reportValidity();
-      return;
-    }
-    const data = new FormData(contactForm);
-    const email = String(data.get("email") || "").trim();
-    const emailInput = contactForm.querySelector("input[name='email']");
-    const submitButton = contactForm.querySelector("button[type='submit']");
-    if (!emailPattern.test(email)) {
-      setContactStatus("Enter a valid email address.", "error");
-      emailInput.setAttribute("aria-invalid", "true");
-      emailInput.focus();
-      return;
-    }
-    if (window.location.protocol === "file:") {
-      setContactStatus("Contact is available on the hosted website, not this local file preview.", "error");
-      return;
-    }
-    contactSubmitting = true;
-    emailInput.removeAttribute("aria-invalid");
-    contactForm.setAttribute("aria-busy", "true");
-    submitButton.disabled = true;
-    submitButton.textContent = "Sending";
-    setContactStatus("");
-    try {
-      const response = await fetch("/api/contact", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          name: String(data.get("name") || "").trim(),
-          email,
-          message: String(data.get("message") || "").trim(),
-          website: String(data.get("website") || "").trim(),
-          startedAt: Number(data.get("startedAt"))
-        })
-      });
-      const result = await response.json().catch(() => ({}));
-      if (!response.ok || !result.ok) throw new Error(result.error || "Unable to send your message right now. Please try again.");
-      contactForm.reset();
-      resetContactTimer();
-      setContactStatus("Message sent. We’ll be in touch.", "success");
-    } catch (error) {
-      const message = error instanceof TypeError ? "Unable to connect. Please try again." : error.message;
-      setContactStatus(message || "Unable to send your message right now. Please try again.", "error");
-    } finally {
-      contactSubmitting = false;
-      contactForm.removeAttribute("aria-busy");
-      submitButton.disabled = false;
-      submitButton.textContent = "Send message";
-    }
-  });
-  contactForm?.querySelector("input[name='email']")?.addEventListener("input", (event) => {
-    event.target.removeAttribute("aria-invalid");
+  setupMessageForm({
+    formSelector: "[data-contact-form]",
+    statusSelector: "[data-contact-form-status]",
+    endpoint: "/api/contact",
+    buttonLabel: "Send message",
+    successMessage: "MESSAGE RECEIVED",
+    buildPayload: (data, email) => ({
+      name: String(data.get("name") || "").trim(),
+      email,
+      message: String(data.get("message") || "").trim(),
+      website: String(data.get("website") || "").trim(),
+      startedAt: Number(data.get("startedAt"))
+    })
   });
 
   const newsletterForm = document.querySelector("[data-newsletter-form]");
