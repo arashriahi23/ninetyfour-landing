@@ -64,11 +64,9 @@ img { display: block; max-width: 100%; }
 
 .chapter { position: relative; min-height: calc(100svh - var(--header-height)); isolation: isolate; }
 .chapter-content { position: relative; display: flex; flex-direction: column; min-height: inherit; padding: 2rem var(--gutter) 1rem; }
-.chapter-heading { display: flex; justify-content: space-between; align-items: baseline; gap: 1rem; }
+.chapter-heading { display: flex; align-items: baseline; }
 .eyebrow, .chapter-footer, .menu-caption { font-size: .7rem; line-height: 1.5; font-weight: 500; letter-spacing: .09em; text-transform: uppercase; }
-.chapter-footer { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: .5rem 1rem; margin-top: auto; padding-top: 1.5rem; }
-.chapter-footer a { display: flex; align-items: center; min-height: 44px; text-decoration: none; }
-.chapter-footer a:hover { text-decoration: underline; }
+.chapter-footer { margin-top: auto; padding-top: 1.5rem; }
 .text-link { display: inline-flex; align-items: center; width: fit-content; min-height: 48px; border-bottom: 1px solid currentColor; font-size: .875rem; font-weight: 500; text-decoration: none; }
 .text-link:hover { border-bottom-width: 2px; }
 .button-link { display: inline-flex; align-items: center; justify-content: center; min-height: 52px; padding: .8rem 1.5rem; border: 0; border-radius: 0; background: var(--navy); color: var(--cream); font-size: .95rem; font-weight: 500; text-align: center; text-decoration: none; }
@@ -197,11 +195,7 @@ img { display: block; max-width: 100%; }
   .header-inquiry, .mobile-menu summary { font-size: .75rem; }
   .chapter-content { padding-top: 1.5rem; }
   .eyebrow, .chapter-footer { font-size: .65rem; }
-  .chapter-heading .eyebrow:last-child { max-width: 58%; text-align: right; }
-  .chapter-heading .eyebrow:only-child { max-width: none; text-align: left; }
   .chapter-footer { padding-top: 1rem; }
-  .chapter-footer p { max-width: 50%; }
-  .chapter-footer a { max-width: 48%; text-align: right; }
   h2 { font-size: clamp(3rem, 12.6vw, 5.5rem); }
   .hero-copy { padding-top: 15rem; }
   .landing-caption { margin-bottom: 1rem; }
