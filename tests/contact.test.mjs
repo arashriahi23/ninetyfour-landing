@@ -75,6 +75,7 @@ test("contact form posts required fields to the Worker and shows success", async
   );
   assert.equal(typeof payload.startedAt, "number");
   assert.equal(page.resets, 1);
+  assert.equal(page.status.textContent, "MESSAGE RECEIVED");
   assert.equal(page.status.dataset.state, "success");
   assert.equal(page.button.disabled, false);
 });
@@ -85,7 +86,7 @@ test("invalid contact email never reaches the endpoint", async () => {
   await page.submit();
   assert.equal(page.calls.length, 0);
   assert.equal(page.attributes.get("aria-invalid"), "true");
-  assert.match(page.status.textContent, /valid email/);
+  assert.equal(page.status.textContent, "ENTER A VALID EMAIL ADDRESS.");
 });
 
 test("contact form reports native validation failures", async () => {
@@ -105,6 +106,7 @@ test("contact network failure permits a retry and blocks duplicate submissions",
   finish({ ok: false, json: async () => ({ error: "Unable to send." }) });
   await pending;
   assert.equal(page.status.dataset.state, "error");
+  assert.equal(page.status.textContent, "SOMETHING WENT WRONG. PLEASE TRY AGAIN.");
   assert.equal(page.button.disabled, false);
 });
 
@@ -113,5 +115,5 @@ test("local file preview does not attempt contact submission", async () => {
   await page.submit();
   assert.equal(page.calls.length, 0);
   assert.equal(page.status.dataset.state, "error");
-  assert.match(page.status.textContent, /hosted website/);
+  assert.equal(page.status.textContent, "SOMETHING WENT WRONG. PLEASE TRY AGAIN.");
 });

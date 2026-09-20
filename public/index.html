@@ -21,8 +21,8 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100,400;100,500;100,600;100,700;100,800&amp;display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="./styles.css?v=contact-heading-cleanup-20260920" />
-    <script src="./script.js?v=art-direction-20260919" defer></script>
+    <link rel="stylesheet" href="./styles.css?v=backend-forms-20260920" />
+    <script src="./script.js?v=backend-forms-20260920" defer></script>
   </head>
   <body>
     <a class="skip-link" href="#chapter-02">Skip introduction</a>
@@ -101,21 +101,24 @@
               <h2 id="collaborations-title">Collaborations</h2>
               <p class="collaboration-lead">Your place, our cart.<br />Let&rsquo;s make something worth showing up for.</p>
             </div>
-            <form class="collaboration-form" id="collaboration-inquiry" data-collaboration-form>
+            <form class="collaboration-form" id="collaboration-inquiry" data-collaboration-form novalidate>
               <div class="form-heading">
                 <h3>Start a conversation</h3>
                 <p>Tell us what you have in mind.</p>
               </div>
               <div class="form-grid">
-                <label>Name (required)<input name="name" type="text" autocomplete="name" required /></label>
-                <label>Email (required)<input name="email" type="email" autocomplete="email" required /></label>
+                <label>Name (required)<input name="name" type="text" autocomplete="name" maxlength="100" required /></label>
+                <label>Email (required)<input name="email" type="email" inputmode="email" autocomplete="email" maxlength="254" required /></label>
                 <label>Event / collaboration type<select name="type"><option value="">Select one</option><option>Corporate event</option><option>Private event</option><option>Brand activation</option><option>Pop-up</option><option>Creative collaboration</option><option>Other</option></select></label>
                 <label>Preferred date<input name="date" type="date" /></label>
-                <label>Location<input name="location" type="text" autocomplete="street-address" /></label>
-                <label>Approximate guest count<input name="guests" type="number" min="1" inputmode="numeric" /></label>
-                <label class="form-details">Additional details<textarea name="details" rows="4"></textarea></label>
+                <label>Location<input name="location" type="text" autocomplete="street-address" maxlength="200" /></label>
+                <label>Approximate guest count<input name="guests" type="number" min="1" max="100000" inputmode="numeric" /></label>
+                <label class="form-details">Additional details (required)<textarea name="details" rows="4" maxlength="5000" required></textarea></label>
               </div>
-              <button class="button-link" type="submit">Open email draft</button>
+              <label class="form-honeypot" aria-hidden="true">Website<input name="website" type="text" tabindex="-1" autocomplete="off" /></label>
+              <input name="startedAt" type="hidden" />
+              <button class="button-link" type="submit">Send inquiry</button>
+              <p class="form-status" data-collaboration-form-status role="status" aria-live="polite"></p>
             </form>
           </div>
           <div class="chapter-footer"><p>Ninety Four / Los Angeles</p></div>
@@ -150,7 +153,7 @@
                 <label class="form-honeypot" aria-hidden="true">Website<input name="website" type="text" tabindex="-1" autocomplete="off" /></label>
                 <input name="startedAt" type="hidden" />
                 <button class="button-link" type="submit">Send message</button>
-                <p class="contact-form-status" data-contact-form-status role="status" aria-live="polite"></p>
+                <p class="form-status" data-contact-form-status role="status" aria-live="polite"></p>
               </form>
               <a class="instagram-link" href="https://www.instagram.com/ninetyfour.la/" target="_blank" rel="noreferrer" aria-label="Ninety Four on Instagram (opens in a new tab)"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5" /><circle cx="12" cy="12" r="4" /><circle cx="17.5" cy="6.5" r=".7" /></svg><span>Instagram</span></a>
             </div>
