@@ -104,12 +104,11 @@ img { display: block; max-width: 100%; }
 .shop-layout { margin: auto 0; padding: clamp(3rem, 7vh, 6rem) 0; }
 .shop-layout > h2 { margin-bottom: clamp(2.5rem, 6vh, 5rem); }
 .shop-index { border-top: 1px solid currentColor; }
-.shop-category { display: grid; grid-template-columns: 3rem minmax(12rem, 1fr) minmax(12rem, .7fr); align-items: baseline; gap: 1.5rem; padding: 1.6rem 0; border-bottom: 1px solid currentColor; }
+.shop-category { display: grid; grid-template-columns: 3rem minmax(12rem, 1fr) minmax(12rem, .7fr); align-items: baseline; gap: 1.5rem; padding: 1.25rem 0; border-bottom: 1px solid currentColor; }
 .shop-category > span { font-size: .7rem; letter-spacing: .09em; }
-.shop-category h3 { font-size: clamp(1.5rem, 2.75vw, 3.1rem); text-transform: uppercase; }
+.shop-category h3 { font-size: clamp(1rem, 1.5vw, 1.75rem); text-transform: uppercase; }
 .shop-category p { font-size: .75rem; letter-spacing: .08em; text-transform: uppercase; }
-.release-note { display: flex; align-items: center; justify-content: space-between; gap: 2rem; margin-top: 2rem; }
-.release-note p { font-size: 1rem; }
+.shop-status { margin-top: clamp(2rem, 4vh, 3.5rem); font-size: .75rem; font-weight: 500; letter-spacing: .09em; }
 .shop-content .chapter-footer { border-top: 1px solid #77655d; }
 
 .chapter-collaborations { overflow: hidden; background: var(--earth); color: var(--cream); }
@@ -220,11 +219,10 @@ img { display: block; max-width: 100%; }
   .court-artwork img { position: absolute; top: 50%; left: 50%; width: 164.73%; height: auto; object-fit: contain; transform: translate(-50%, -50%) rotate(90deg); }
   .shop-layout > h2 { margin-bottom: 2.5rem; }
   .chapter-shop { --shop-transition-height: clamp(5rem, 24vw, 7.5rem); }
-  .shop-category { grid-template-columns: 2rem 1fr; gap: .5rem 1rem; }
-  .shop-category h3 { font-size: clamp(1.5rem, 7vw, 2.25rem); }
+  .shop-category { grid-template-columns: 2rem 1fr; gap: .5rem 1rem; padding: 1.1rem 0; }
+  .shop-category h3 { font-size: clamp(.95rem, 4vw, 1.15rem); }
   .shop-category p { grid-column: 2; }
-  .release-note { display: block; }
-  .release-note .text-link { margin-top: 1rem; }
+  .shop-status { margin-top: 1.5rem; font-size: .7rem; }
   .collaborations-intro > .eyebrow { margin-bottom: 1.5rem; }
   .collaborations-intro h2 { margin-bottom: 2.5rem; font-size: clamp(1.75rem, 9vw, 4.25rem); white-space: nowrap; }
   .collaboration-lead { font-size: 1.2rem; }
