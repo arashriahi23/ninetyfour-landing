@@ -129,8 +129,7 @@ img { display: block; max-width: 100%; }
 .contact-direct { display: flex; flex-direction: column; align-items: flex-start; padding-top: 1.5rem; border-top: 1px solid #7f7b6f; }
 .contact-direct h2 { margin-bottom: 2rem; font-size: clamp(2.7rem, 4.4vw, 4.6rem); }
 .contact-form { width: 100%; }
-.contact-form .form-heading h3 { font-size: clamp(1.35rem, 2vw, 1.8rem); }
-.contact-form .form-grid { grid-template-columns: 1fr; }
+.contact-form .form-grid { grid-template-columns: 1fr; margin-top: 0; }
 .contact-form .button-link { width: 100%; background: var(--cream); color: var(--ink); }
 .contact-form .button-link:hover:not(:disabled) { background: var(--earth); color: var(--navy); }
 .contact-form-status { min-height: 1.6em; margin-top: .8rem; font-size: .875rem; }
