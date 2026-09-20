@@ -211,11 +211,11 @@ img { display: block; max-width: 100%; }
   .about-layout, .shop-layout, .collaborations-layout, .contact-layout { grid-template-columns: 1fr; gap: 2rem; margin: 0; padding: 2.5rem 0; }
   .chapter-about { --court-safe-inline: clamp(2rem, 9vw, 2.75rem); --court-safe-block: clamp(2.5rem, 11vw, 3rem); min-height: calc(100vw * 3451 / 2095); }
   .about-content { padding: var(--court-safe-block) var(--court-safe-inline) clamp(2rem, 8vw, 2.5rem); }
-  .about-layout { display: flex; flex: 1; flex-direction: column; justify-content: center; gap: clamp(1rem, 3vh, 1.5rem); padding: clamp(.75rem, 2.5vh, 1.25rem) 0; }
+  .about-layout { display: flex; flex: 1; flex-direction: column; justify-content: center; gap: clamp(1.5rem, 3.5vh, 2rem); padding: clamp(.75rem, 2.5vh, 1.25rem) 0; }
   .about-heading { display: contents; }
   .about-heading h2 { margin-bottom: 0; font-size: clamp(2.1rem, 9vw, 2.65rem); line-height: .96; letter-spacing: .015em; }
-  .about-story { width: 100%; margin: 0; }
-  .about-story p { margin-bottom: .5rem; font-size: clamp(.6875rem, 2.8vw, .75rem); line-height: 1.38; }
+  .about-story { width: calc(100% - clamp(3rem, 12vw, 4rem)); max-width: 15rem; margin-inline: auto; }
+  .about-story p { margin-bottom: .45rem; font-size: clamp(.65625rem, 2.75vw, .71875rem); line-height: 1.36; }
   .chapter-about::after { background: linear-gradient(180deg, rgba(7,31,79,.32) 0%, rgba(7,31,79,.68) 70%, rgba(104,30,43,.9) 91%, var(--color-burgundy) 100%); }
   .court-artwork img { position: absolute; top: 50%; left: 50%; width: 164.73%; height: auto; object-fit: contain; transform: translate(-50%, -50%) rotate(90deg); }
   .shop-layout > h2 { margin-bottom: 2.5rem; }
