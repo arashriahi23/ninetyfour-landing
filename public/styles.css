@@ -117,7 +117,7 @@ img { display: block; max-width: 100%; }
 .collaborations-intro h2 { margin-bottom: clamp(3rem, 8vh, 6rem); font-size: clamp(2rem, 4.5vw, 5rem); white-space: nowrap; }
 .collaboration-lead { font-size: clamp(1.25rem, 2vw, 1.8rem); line-height: 1.35; text-transform: uppercase; }
 .collaboration-types { margin-top: 2rem; color: var(--navy); font-size: .7rem; letter-spacing: .09em; text-transform: uppercase; }
-.collaboration-form { scroll-margin-top: calc(var(--header-height) + 1rem); padding: 2rem; background: var(--navy); color: var(--cream); }
+.collaboration-form { scroll-margin-top: calc(var(--header-height) + 1rem); padding: 2rem 2rem 1.5rem; background: var(--navy); color: var(--cream); }
 .form-heading { display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; padding-bottom: 1.25rem; border-bottom: 1px solid currentColor; }
 .form-heading h3 { font-size: clamp(1.7rem, 2.7vw, 2.5rem); }
 .form-heading p { font-size: .8rem; }
@@ -132,18 +132,23 @@ img { display: block; max-width: 100%; }
 .form-details { grid-column: 1 / -1; }
 .collaboration-form .button-link { width: 100%; background: var(--cream); color: var(--navy); }
 .collaboration-form .button-link:hover { background: var(--earth); color: var(--navy); }
-.form-note { margin-top: .9rem; font-size: .76rem; line-height: 1.45; }
-.form-note a { display: inline-flex; min-height: 32px; align-items: center; }
 .collaborations-content .chapter-footer { border-top: 1px solid color-mix(in srgb, var(--cream) 52%, transparent); }
 
 .chapter-contact { background: var(--ink); color: var(--cream); }
 .contact-layout { display: grid; grid-template-columns: 1.2fr 1fr; align-items: start; gap: clamp(3rem, 8vw, 9rem); margin: auto 0; padding: 4rem 0; }
 .contact-direct { display: flex; flex-direction: column; align-items: flex-start; padding-top: 1.5rem; border-top: 1px solid #7f7b6f; }
-.contact-direct h2 { margin-bottom: 2.5rem; font-size: clamp(2.7rem, 4.4vw, 4.6rem); }
-.contact-label { margin-top: 1.5rem; color: #bfb7a7; }
-.contact-email { display: flex; align-items: center; min-height: 48px; margin-top: .25rem; font-size: clamp(1.05rem, 1.85vw, 1.8rem); overflow-wrap: anywhere; }
-.contact-direct .text-link { margin: .25rem 0 2.5rem; }
+.contact-direct h2 { margin-bottom: 2rem; font-size: clamp(2.7rem, 4.4vw, 4.6rem); }
+.contact-form { width: 100%; }
+.contact-form .form-heading h3 { font-size: clamp(1.35rem, 2vw, 1.8rem); }
+.contact-form .form-grid { grid-template-columns: 1fr; }
+.contact-form .button-link { width: 100%; background: var(--cream); color: var(--ink); }
+.contact-form .button-link:hover:not(:disabled) { background: var(--earth); color: var(--navy); }
+.contact-form-status { min-height: 1.6em; margin-top: .8rem; font-size: .875rem; }
+.contact-form-status[data-state="error"] { color: #f29a80; }
+.contact-form-status[data-state="success"] { color: #b9ddc5; }
+.form-honeypot { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
 .instagram-link { display: flex; align-items: center; gap: .65rem; min-height: 44px; font-size: .875rem; text-decoration: none; }
+.contact-form + .instagram-link { margin-top: 1rem; }
 .instagram-link:hover { text-decoration: underline; }
 .instagram-link svg { width: 19px; height: 19px; fill: none; stroke: currentColor; stroke-width: 1.5; }
 .newsletter-panel { scroll-margin-top: 1.5rem; }

@@ -60,6 +60,7 @@
     if (!mobileMenu.contains(event.target)) mobileMenu.open = false;
   });
 
+  const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   const collaborationForm = document.querySelector("[data-collaboration-form]");
   collaborationForm?.addEventListener("submit", (event) => {
     event.preventDefault();
@@ -81,9 +82,79 @@
     window.location.href = `mailto:Admin@theninety4.com?subject=${encodeURIComponent("Ninety Four collaboration inquiry")}&body=${encodeURIComponent(body)}`;
   });
 
+  const contactForm = document.querySelector("[data-contact-form]");
+  const contactStatus = document.querySelector("[data-contact-form-status]");
+  let contactSubmitting = false;
+  const setContactStatus = (message, state = "") => {
+    if (!contactStatus) return;
+    contactStatus.textContent = message;
+    contactStatus.dataset.state = state;
+  };
+  const resetContactTimer = () => {
+    const startedAt = contactForm?.querySelector("input[name='startedAt']");
+    if (startedAt) startedAt.value = String(Date.now());
+  };
+  resetContactTimer();
+  contactForm?.addEventListener("submit", async (event) => {
+    event.preventDefault();
+    if (contactSubmitting) return;
+    if (!contactForm.checkValidity()) {
+      contactForm.reportValidity();
+      return;
+    }
+    const data = new FormData(contactForm);
+    const email = String(data.get("email") || "").trim();
+    const emailInput = contactForm.querySelector("input[name='email']");
+    const submitButton = contactForm.querySelector("button[type='submit']");
+    if (!emailPattern.test(email)) {
+      setContactStatus("Enter a valid email address.", "error");
+      emailInput.setAttribute("aria-invalid", "true");
+      emailInput.focus();
+      return;
+    }
+    if (window.location.protocol === "file:") {
+      setContactStatus("Contact is available on the hosted website, not this local file preview.", "error");
+      return;
+    }
+    contactSubmitting = true;
+    emailInput.removeAttribute("aria-invalid");
+    contactForm.setAttribute("aria-busy", "true");
+    submitButton.disabled = true;
+    submitButton.textContent = "Sending";
+    setContactStatus("");
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: String(data.get("name") || "").trim(),
+          email,
+          message: String(data.get("message") || "").trim(),
+          website: String(data.get("website") || "").trim(),
+          startedAt: Number(data.get("startedAt"))
+        })
+      });
+      const result = await response.json().catch(() => ({}));
+      if (!response.ok || !result.ok) throw new Error(result.error || "Unable to send your message right now. Please try again.");
+      contactForm.reset();
+      resetContactTimer();
+      setContactStatus("Message sent. We’ll be in touch.", "success");
+    } catch (error) {
+      const message = error instanceof TypeError ? "Unable to connect. Please try again." : error.message;
+      setContactStatus(message || "Unable to send your message right now. Please try again.", "error");
+    } finally {
+      contactSubmitting = false;
+      contactForm.removeAttribute("aria-busy");
+      submitButton.disabled = false;
+      submitButton.textContent = "Send message";
+    }
+  });
+  contactForm?.querySelector("input[name='email']")?.addEventListener("input", (event) => {
+    event.target.removeAttribute("aria-invalid");
+  });
+
   const newsletterForm = document.querySelector("[data-newsletter-form]");
   const newsletterStatus = document.querySelector("[data-newsletter-status]");
-  const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   let submitting = false;
   const setNewsletterStatus = (message, state = "") => {
     if (!newsletterStatus) return;

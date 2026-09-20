@@ -1,6 +1,6 @@
 # Ninety Four Homepage
 
-Five-chapter static site for Ninety Four, with a Cloudflare Worker handling Brevo newsletter signup.
+Five-chapter static site for Ninety Four, with a Cloudflare Worker handling Brevo newsletter signup and general contact submissions.
 
 ## Run locally
 
@@ -17,6 +17,7 @@ Then visit `http://localhost:8000`.
 
 - Newsletter signup posts to `/api/subscribe`. The Worker requires the `BREVO_API_KEY` secret and `BREVO_TEMP_LIST_ID` (currently `4`). Keep the existing Brevo confirmation automation enabled. A static local server does not implement this endpoint.
 - Collaboration inquiries use an accessible form to compose a prefilled `mailto:` draft to `Admin@theninety4.com`. There is no inquiry-form backend; opening the draft does not send an inquiry or confirm a booking.
+- General contact posts to `/api/contact`. The Worker sends the message to `Admin@theninety4.com` through Brevo transactional email, using `CONTACT_SENDER_EMAIL` as the verified sender and the visitor as `replyTo`. `BREVO_API_KEY` remains server-side. The default sender is `Admin@theninety4.com`, which must be verified in Brevo before deployment.
 - Instagram retains the existing `ninetyfour.la` destination.
 
 ## Preview and assets
