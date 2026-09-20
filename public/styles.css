@@ -94,8 +94,6 @@ img { display: block; max-width: 100%; }
 .about-story p:last-child { margin-bottom: 0; }
 .about-story .lead { letter-spacing: 0; }
 .about-story strong { font-weight: 700; }
-.about-content .chapter-footer { border-top: 1px solid #9b6d74; }
-
 .chapter-shop { --shop-transition-height: clamp(7.5rem, 14vw, 12.5rem); overflow: hidden; background: var(--color-burgundy); color: var(--cream); }
 .chapter-shop::after { content: ""; position: absolute; z-index: 0; right: 0; bottom: 0; left: 0; height: var(--shop-transition-height); pointer-events: none; background: linear-gradient(180deg, var(--color-burgundy) 0%, color-mix(in srgb, var(--color-burgundy) 75%, var(--earth)) 30%, color-mix(in srgb, var(--color-burgundy) 50%, var(--earth)) 58%, color-mix(in srgb, var(--color-burgundy) 25%, var(--earth)) 80%, var(--earth) 100%); }
 .shop-content { z-index: 1; padding-bottom: calc(1rem + var(--shop-transition-height)); }
@@ -107,8 +105,6 @@ img { display: block; max-width: 100%; }
 .shop-category h3 { font-size: clamp(1rem, 1.5vw, 1.75rem); text-transform: uppercase; }
 .shop-category p { font-size: .75rem; letter-spacing: .08em; text-transform: uppercase; }
 .shop-status { margin-top: clamp(2rem, 4vh, 3.5rem); font-size: .75rem; font-weight: 500; letter-spacing: .09em; }
-.shop-content .chapter-footer { border-top: 1px solid #77655d; }
-
 .chapter-collaborations { overflow: hidden; background: var(--earth); color: var(--cream); }
 .chapter-collaborations::after { content: ""; position: absolute; z-index: 0; right: 0; bottom: 0; left: 0; height: clamp(4rem, 10vh, 7rem); pointer-events: none; background: linear-gradient(180deg, transparent, var(--ink)); }
 .collaborations-content { z-index: 1; }
@@ -132,8 +128,6 @@ img { display: block; max-width: 100%; }
 .form-details { grid-column: 1 / -1; }
 .collaboration-form .button-link { width: 100%; background: var(--cream); color: var(--navy); }
 .collaboration-form .button-link:hover { background: var(--earth); color: var(--navy); }
-.collaborations-content .chapter-footer { border-top: 1px solid color-mix(in srgb, var(--cream) 52%, transparent); }
-
 .chapter-contact { background: var(--ink); color: var(--cream); }
 .contact-layout { display: grid; grid-template-columns: 1.2fr 1fr; align-items: start; gap: clamp(3rem, 8vw, 9rem); margin: auto 0; padding: 4rem 0; }
 .contact-direct { display: flex; flex-direction: column; align-items: flex-start; padding-top: 1.5rem; border-top: 1px solid #7f7b6f; }
