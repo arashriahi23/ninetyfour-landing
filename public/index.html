@@ -20,8 +20,9 @@
     <title>Ninety Four | Coffee &amp; Events</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preload" as="image" href="./assets/court-green.svg" fetchpriority="high" />
     <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100,400;100,500;100,600;100,700;100,800&amp;display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="./styles.css?v=contact-helper-cleanup-20260920" />
+    <link rel="stylesheet" href="./styles.css?v=transition-label-cleanup-20260929" />
     <script src="./script.js?v=backend-forms-20260920" defer></script>
   </head>
   <body>
@@ -51,7 +52,9 @@
       </div>
     </header>
     <main>
-      <section class="chapter chapter-landing" id="chapter-01" aria-labelledby="landing-title" data-chapter tabindex="-1">
+      <section class="chapter court-page court-page--green chapter-landing" id="chapter-01" aria-labelledby="landing-title" data-chapter tabindex="-1">
+        <div class="court-artwork" aria-hidden="true"><img src="./assets/court-green.svg" width="828" height="503" loading="eager" fetchpriority="high" decoding="async" alt="" /></div>
+        <div class="court-emblem-layer" aria-hidden="true"><div class="court-emblem"></div></div>
         <div class="chapter-content landing-content">
           <div class="hero-copy">
             <h1 id="landing-title"><span class="visually-hidden">Ninety Four</span><span class="index-logo" aria-hidden="true"></span></h1>
@@ -61,8 +64,8 @@
         </div>
       </section>
 
-      <section class="chapter chapter-about" id="chapter-02" aria-labelledby="about-title" data-chapter tabindex="-1">
-        <div class="court-artwork" aria-hidden="true"><img src="./assets/RUG PATTERN SIGNAGE.png" width="3451" height="2095" loading="lazy" decoding="async" alt="" /></div>
+      <section class="chapter court-page court-page--blue chapter-about" id="chapter-02" aria-labelledby="about-title" data-chapter tabindex="-1">
+        <div class="court-artwork" aria-hidden="true"><img src="./assets/court-blue.svg" width="828" height="503" loading="lazy" decoding="async" alt="" /></div>
         <div class="chapter-content about-content">
           <div class="about-layout">
             <div class="about-heading"><h2 id="about-title">A place<br />in motion</h2></div>
@@ -78,7 +81,8 @@
         </div>
       </section>
 
-      <section class="chapter chapter-shop" id="chapter-03" aria-labelledby="shop-title" data-chapter tabindex="-1">
+      <section class="chapter court-page court-page--red chapter-shop" id="chapter-03" aria-labelledby="shop-title" data-chapter tabindex="-1">
+        <div class="court-artwork" aria-hidden="true"><img src="./assets/court-red.svg" width="828" height="503" loading="lazy" decoding="async" alt="" /></div>
         <div class="chapter-content shop-content">
           <div class="shop-layout">
             <h2 id="shop-title">Shop</h2>
@@ -89,11 +93,11 @@
             </div>
             <p class="shop-status">Coming soon</p>
           </div>
-          <div class="chapter-footer"><p>Ninety Four / Shop index</p></div>
         </div>
       </section>
 
-      <section class="chapter chapter-collaborations" id="chapter-04" aria-labelledby="collaborations-title" data-chapter tabindex="-1">
+      <section class="chapter court-page court-page--orange chapter-collaborations" id="chapter-04" aria-labelledby="collaborations-title" data-chapter tabindex="-1">
+        <div class="court-artwork" aria-hidden="true"><img src="./assets/court-orange.svg" width="828" height="503" loading="lazy" decoding="async" alt="" /></div>
         <div class="chapter-content collaborations-content">
           <div class="collaborations-layout">
             <div class="collaborations-intro">
@@ -121,11 +125,11 @@
               <p class="form-status" data-collaboration-form-status role="status" aria-live="polite"></p>
             </form>
           </div>
-          <div class="chapter-footer"><p>Ninety Four / Los Angeles</p></div>
         </div>
       </section>
 
-      <section class="chapter chapter-contact" id="chapter-05" aria-labelledby="contact-title" data-chapter tabindex="-1">
+      <section class="chapter court-page court-page--black chapter-contact" id="chapter-05" aria-labelledby="contact-title" data-chapter tabindex="-1">
+        <div class="court-artwork" aria-hidden="true"><img src="./assets/court-black.svg" width="828" height="503" loading="lazy" decoding="async" alt="" /></div>
         <div class="chapter-content contact-content">
           <div class="contact-layout">
             <div class="newsletter-panel" id="newsletter" tabindex="-1" aria-labelledby="newsletter-title">
