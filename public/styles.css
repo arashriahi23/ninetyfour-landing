@@ -115,7 +115,7 @@ img { display: block; max-width: 100%; }
 .collaborations-intro h2 { margin-bottom: clamp(3rem, 8vh, 6rem); font-size: clamp(2rem, 4.5vw, 5rem); overflow-wrap: anywhere; }
 .collaborations-intro { min-width: 0; padding: clamp(1rem, 2vw, 2rem); }
 @media (forced-colors: none) {
-  .collaborations-intro { -webkit-text-stroke: 2px var(--ink); paint-order: stroke fill; }
+  .collaborations-intro > .eyebrow { -webkit-text-stroke: 2px var(--ink); paint-order: stroke fill; }
 }
 .collaboration-lead { font-size: clamp(1.25rem, 2vw, 1.8rem); line-height: 1.35; text-transform: uppercase; }
 .collaboration-offer { margin-top: .75rem; max-width: 36ch; text-transform: none; }
@@ -220,6 +220,8 @@ img { display: block; max-width: 100%; }
   .court-artwork img { position: absolute; top: 50%; left: 50%; width: 164.73%; height: auto; object-fit: contain; transform: translate(-50%, -50%) rotate(90deg); }
   .court-emblem { width: 13.66vw; }
   .court-emblem-spin { width: calc(164.73% * .17247); }
+  /* Match the newsletter eyebrow and heading inset, allowing for rounded capitals. */
+  .shop-layout { padding-top: calc(2.5rem + 2.475rem - 1px); }
   .shop-layout > h2 { margin-bottom: 2.5rem; }
   .shop-category { grid-template-columns: 2rem 1fr; gap: .5rem 1rem; padding: 1.1rem 0; }
   .shop-category h3 { font-size: clamp(.95rem, 4vw, 1.15rem); }
