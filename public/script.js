@@ -3,6 +3,39 @@
   const links = [...document.querySelectorAll("[data-chapter-link]")];
   const masthead = document.querySelector(".masthead");
   const mobileMenu = document.querySelector(".mobile-menu");
+  const emblemLayer = document.querySelector("[data-spin-src]");
+  if (emblemLayer) {
+    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+    let spin;
+
+    const updateEmblem = () => {
+      if (reducedMotion.matches) {
+        spin?.remove();
+        spin = null;
+        emblemLayer.classList.remove("is-spinning");
+        return;
+      }
+      if (spin) return;
+
+      const image = new Image();
+      spin = image;
+      image.alt = "";
+      image.className = "court-emblem-spin";
+      image.fetchPriority = "low";
+      image.onload = () => {
+        if (spin !== image || reducedMotion.matches) return;
+        emblemLayer.append(image);
+        emblemLayer.classList.add("is-spinning");
+      };
+      image.onerror = () => {
+        if (spin === image) spin = null;
+      };
+      image.src = emblemLayer.dataset.spinSrc;
+    };
+
+    reducedMotion.addEventListener("change", updateEmblem);
+    updateEmblem();
+  }
   let framePending = false;
 
   const updateActiveChapter = () => {
@@ -41,6 +74,7 @@
     queueChapterUpdate();
   });
   window.addEventListener("load", updateActiveChapter);
+  window.addEventListener("hashchange", queueChapterUpdate);
   updateActiveChapter();
 
   document.addEventListener("click", (event) => {
@@ -81,6 +115,7 @@
       event.preventDefault();
       if (submitting) return;
       if (!form.checkValidity()) {
+        setStatus("Check the highlighted field and try again.", "error");
         form.reportValidity();
         return;
       }
@@ -211,7 +246,7 @@
       submitting = false;
       newsletterForm.removeAttribute("aria-busy");
       submitButton.disabled = false;
-      submitButton.textContent = "Join";
+      submitButton.textContent = "Subscribe";
     }
   });
   newsletterForm?.querySelector("input[name='email']")?.addEventListener("input", (event) => {

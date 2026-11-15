@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="theme-color" content="#071f4f" />
-    <meta name="description" content="Ninety Four is a Los Angeles world of coffee, food, fashion, objects, basketball, music, art, design, and hospitality." />
+    <meta name="description" content="Ninety Four is a Los Angeles creative brand and mobile café for private events, corporate gatherings, brand activations and pop-ups." />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://ninetyfourla.com/" />
     <meta property="og:title" content="Ninety Four" />
@@ -22,8 +22,8 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="preload" as="image" href="./assets/court-green.svg" fetchpriority="high" />
     <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100,400;100,500;100,600;100,700;100,800&amp;display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="./styles.css?v=transition-label-cleanup-20260929" />
-    <script src="./script.js?v=backend-forms-20260920" defer></script>
+    <link rel="stylesheet" href="./styles.css?v=compass-beyond-circle" />
+    <script src="./script.js?v=compass-spin-20261115" defer></script>
   </head>
   <body>
     <a class="skip-link" href="#chapter-02">Skip introduction</a>
@@ -37,7 +37,7 @@
         <a class="chapter-link" href="#chapter-05" data-chapter-link="chapter-05"><span>05</span> Contact</a>
       </nav>
       <div class="header-actions">
-        <a class="header-inquiry" href="#collaboration-inquiry">Collaborate</a>
+        <a class="header-inquiry" href="#collaboration-inquiry">Event inquiries</a>
         <details class="mobile-menu">
           <summary>Chapters<span class="menu-symbol" aria-hidden="true"></span></summary>
           <nav class="chapter-nav mobile-nav" aria-label="Mobile chapters">
@@ -54,7 +54,9 @@
     <main>
       <section class="chapter court-page court-page--green chapter-landing" id="chapter-01" aria-labelledby="landing-title" data-chapter tabindex="-1">
         <div class="court-artwork" aria-hidden="true"><img src="./assets/court-green.svg" width="828" height="503" loading="eager" fetchpriority="high" decoding="async" alt="" /></div>
-        <div class="court-emblem-layer" aria-hidden="true"><div class="court-emblem"></div></div>
+        <div class="court-emblem-layer" aria-hidden="true" data-spin-src="./assets/compass-spin.webp">
+          <div class="court-emblem"></div>
+        </div>
         <div class="chapter-content landing-content">
           <div class="hero-copy">
             <h1 id="landing-title"><span class="visually-hidden">Ninety Four</span><span class="index-logo" aria-hidden="true"></span></h1>
@@ -86,12 +88,13 @@
         <div class="chapter-content shop-content">
           <div class="shop-layout">
             <h2 id="shop-title">Shop</h2>
+            <p class="shop-status">Coming soon</p>
             <div class="shop-index" aria-label="Shop categories">
               <div class="shop-category"><span>01</span><h3>Apparel</h3><p>Ninety Four / Collection 01</p></div>
               <div class="shop-category"><span>02</span><h3>Accessories</h3><p>Objects / Daily rotation</p></div>
               <div class="shop-category"><span>03</span><h3>Coffee</h3><p>Counter / Service</p></div>
             </div>
-            <p class="shop-status">Coming soon</p>
+            <a class="text-link shop-updates" href="#newsletter">Get release updates</a>
           </div>
         </div>
       </section>
@@ -103,26 +106,27 @@
             <div class="collaborations-intro">
               <p class="eyebrow">In good company</p>
               <h2 id="collaborations-title">Collaborations</h2>
-              <p class="collaboration-lead">Your place, our cart.<br />Let&rsquo;s make something worth showing up for.</p>
+              <p class="collaboration-lead">Your place, our cart.</p>
+              <p class="collaboration-offer">A mobile café for private events, corporate gatherings, brand activations and pop-ups.</p>
             </div>
-            <form class="collaboration-form" id="collaboration-inquiry" data-collaboration-form novalidate>
+            <form class="collaboration-form" id="collaboration-inquiry" tabindex="-1" data-collaboration-form novalidate>
               <div class="form-heading">
                 <h3>Start a conversation</h3>
                 <p>Tell us what you have in mind.</p>
               </div>
               <div class="form-grid">
                 <label>Name (required)<input name="name" type="text" autocomplete="name" maxlength="100" required /></label>
-                <label>Email (required)<input name="email" type="email" inputmode="email" autocomplete="email" maxlength="254" required /></label>
-                <label>Event / collaboration type<select name="type"><option value="">Select one</option><option>Corporate event</option><option>Private event</option><option>Brand activation</option><option>Pop-up</option><option>Creative collaboration</option><option>Other</option></select></label>
-                <label>Preferred date<input name="date" type="date" /></label>
-                <label>Location<input name="location" type="text" autocomplete="street-address" maxlength="200" /></label>
-                <label>Approximate guest count<input name="guests" type="number" min="1" max="100000" inputmode="numeric" /></label>
+                <label>Email (required)<input name="email" type="email" inputmode="email" autocomplete="email" maxlength="254" aria-describedby="collaboration-status" required /></label>
+                <label>Event type (optional)<select name="type"><option value="">Select one</option><option>Corporate event</option><option>Private event</option><option>Brand activation</option><option>Pop-up</option><option>Creative collaboration</option><option>Other</option></select></label>
+                <label>Preferred date (optional)<input name="date" type="date" /></label>
+                <label>Location (optional)<input name="location" type="text" autocomplete="street-address" maxlength="200" /></label>
+                <label>Guest count (optional)<input name="guests" type="number" min="1" max="100000" inputmode="numeric" /></label>
                 <label class="form-details">Additional details (required)<textarea name="details" rows="4" maxlength="5000" required></textarea></label>
               </div>
               <label class="form-honeypot" aria-hidden="true">Website<input name="website" type="text" tabindex="-1" autocomplete="off" /></label>
               <input name="startedAt" type="hidden" />
               <button class="button-link" type="submit">Send inquiry</button>
-              <p class="form-status" data-collaboration-form-status role="status" aria-live="polite"></p>
+              <p class="form-status" id="collaboration-status" data-collaboration-form-status role="status"></p>
             </form>
           </div>
         </div>
@@ -135,12 +139,12 @@
             <div class="newsletter-panel" id="newsletter" tabindex="-1" aria-labelledby="newsletter-title">
               <p class="eyebrow">Updates from Ninety Four</p>
               <h2 id="newsletter-title">Full Court<br />Access</h2>
-              <p>The story is still being written.<br />Follow along.</p>
+              <p>Get email updates on pop-ups, collaborations and releases.</p>
               <form class="newsletter-form" data-newsletter-form novalidate>
                 <label for="newsletter-email">Email address</label>
                 <div class="newsletter-fields">
                   <input id="newsletter-email" name="email" type="email" inputmode="email" autocomplete="email" placeholder="Your email address" aria-describedby="newsletter-status" required />
-                  <button type="submit">Join</button>
+                  <button type="submit">Subscribe</button>
                 </div>
                 <p class="newsletter-status" id="newsletter-status" data-newsletter-status role="status" aria-live="polite"></p>
               </form>
@@ -150,13 +154,13 @@
               <form class="contact-form" data-contact-form novalidate>
                 <div class="form-grid">
                   <label>Name (required)<input name="name" type="text" autocomplete="name" maxlength="100" required /></label>
-                  <label>Email (required)<input name="email" type="email" inputmode="email" autocomplete="email" maxlength="254" required /></label>
+                  <label>Email (required)<input name="email" type="email" inputmode="email" autocomplete="email" maxlength="254" aria-describedby="contact-status" required /></label>
                   <label class="form-details">Message (required)<textarea name="message" rows="6" maxlength="5000" required></textarea></label>
                 </div>
                 <label class="form-honeypot" aria-hidden="true">Website<input name="website" type="text" tabindex="-1" autocomplete="off" /></label>
                 <input name="startedAt" type="hidden" />
                 <button class="button-link" type="submit">Send message</button>
-                <p class="form-status" data-contact-form-status role="status" aria-live="polite"></p>
+                <p class="form-status" id="contact-status" data-contact-form-status role="status"></p>
               </form>
               <a class="instagram-link" href="https://www.instagram.com/ninetyfour.la/" target="_blank" rel="noreferrer" aria-label="Ninety Four on Instagram (opens in a new tab)"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5" /><circle cx="12" cy="12" r="4" /><circle cx="17.5" cy="6.5" r=".7" /></svg><span>Instagram</span></a>
             </div>
