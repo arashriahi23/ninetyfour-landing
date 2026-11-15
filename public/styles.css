@@ -241,6 +241,28 @@ img { display: block; max-width: 100%; }
   .newsletter-panel h2 { font-size: clamp(3rem, 12.6vw, 5rem); }
   .newsletter-fields input { padding: .75rem .6rem; }
   .newsletter-fields button { padding: .75rem; }
+
+  /* The rotated SVG has a 405.84-unit playing surface on its 828-unit long axis. */
+  .court-page { --playing-surface: calc(164.73% * 405.84 / 828); }
+  .chapter-about { --playing-surface: calc(min(164.73%, 135svh) * 405.84 / 828); }
+  .court-page > .chapter-content {
+    width: calc(min(100%, var(--playing-surface)) - 28px);
+    min-width: 0;
+    margin-inline: auto;
+    padding-inline: 0;
+    container-type: inline-size;
+    overflow-wrap: anywhere;
+  }
+  .court-page :is(.collaborations-layout, .contact-layout, .form-grid) {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .court-page :is(input, select, textarea, button) { max-width: 100%; }
+  .collaborations-intro { padding-inline: 0; }
+  .collaborations-intro h2 { font-size: min(7vw, 10.5cqi); }
+  .newsletter-panel h2 { font-size: min(12.6vw, 18cqi); }
+  .newsletter-fields { flex-wrap: wrap; }
+  .newsletter-fields input { flex: 1 1 9rem; width: auto; }
+  .newsletter-fields button { flex-grow: 1; }
 }
 
 @media (max-width: 767px) and (orientation: portrait) {
@@ -252,7 +274,9 @@ img { display: block; max-width: 100%; }
   .court-page:not(.chapter-about) > .court-emblem-layer { position: sticky; top: var(--header-height); align-self: start; width: 100%; height: calc(100svh - var(--header-height)); }
   .court-page:not(.chapter-about) > .court-artwork img { position: absolute; top: 50%; left: 50%; width: min(calc(100svh - var(--header-height)), calc(100vw * 3451 / 2095)); height: auto; transform: translate(-50%, -50%) rotate(90deg); }
   .court-emblem-spin { width: calc(min(100svh - var(--header-height), 100vw * 3451 / 2095) * .17247); }
-  .court-page:not(.chapter-about) > .chapter-content { width: min(100%, calc((100svh - var(--header-height)) * 2095 / 3451)); margin-inline: auto; }
+  .court-page:not(.chapter-about) {
+    --playing-surface: calc(min(100svh - var(--header-height), 100vw * 3451 / 2095) * 405.84 / 828);
+  }
 }
 
 @media (max-width: 370px) {
